@@ -1,0 +1,26 @@
+# free forever — a directory of AI coding tools and what they actually cost.
+User-agent: *
+Allow: /
+
+Sitemap: https://e4crypt3d.github.io/free-forever/sitemap.xml
+
+# Let social and messaging crawlers fetch the share image. The WhatsApp
+# preview is often fetched by the sender's own phone, so neither list is
+# a guarantee, only permission.
+User-agent: WhatsApp
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
+User-agent: Slackbot
+Allow: /
+
+User-agent: Discordbot
+Allow: /

@@ -840,3 +840,66 @@ h1, h2, h3 { margin: 0; }
   .eyebrow { font-size: 10.5px; }
   .foot-note { font-size: 11.5px; }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   LINKABLE DESCRIPTION + TAGS
+   Every outbound link shows as a link: underlined, with an arrow on
+   hover. Nothing looks like plain text but behaves like a button.
+   ══════════════════════════════════════════════════════════════ */
+
+/* --- shared link look for source chips --- */
+.tcard-foot .src a,
+.drow-src a,
+.drow-ev a {
+  color: var(--ink-3);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line-2);
+  transition: color .12s, border-color .12s;
+}
+.tcard-foot .src a:hover,
+.drow-src a:hover {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+}
+
+/* the domain under a tool name is now the tool's own link */
+.tcard-host a, .drow-host {
+  text-decoration: none;
+  border-bottom: 1px dotted var(--line-2);
+}
+.tcard-host a:hover { color: var(--ink-2); border-bottom-color: var(--ink-2); }
+
+/* --- tags carry a link to the filtered tier where it means something --- */
+.tag a { color: inherit; text-decoration: none; }
+.tag--link { cursor: pointer; transition: border-color .12s, background .12s, color .12s; }
+.tag--link:hover { border-color: var(--ink); color: var(--ink); }
+.tag--link:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* small arrow on hover for any outbound link inside an entry */
+.drow-name::after,
+.drow-host::after {
+  content: "";
+  display: inline-block;
+  width: 0; height: 0;
+  transition: none;
+}
+.drow-name:hover::after,
+.drow-host:hover::after { content: "↗"; font-size: .8em; margin-left: 3px; opacity: .55; }
+
+@media (min-width: 1024px) {
+  .drow-src { display: grid; gap: 2px; font-size: 10px; }
+  .drow-src a { font-size: 10px; }
+  .drow-ev {
+    display: inline-block;
+    margin-top: 3px;
+    font: 500 9px/1.3 var(--mono);
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 2px 5px;
+    border-radius: 3px;
+    border-bottom: 0;
+  }
+  .drow-ev.ev--vendor { color: var(--green); background: var(--green-bg); }
+  .drow-ev.ev--directory { color: var(--amber); background: var(--amber-bg); }
+  .drow-meta { justify-items: end; }
+}

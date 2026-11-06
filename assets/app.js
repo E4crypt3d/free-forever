@@ -28,15 +28,24 @@
     catch (e) { return url; }
   }
 
+  // Short, human label for a source key ("freecode-faq" -> "faq").
+  function srcLabel(entry, key) {
+    if (key === entry.id) return "site";
+    if (key.indexOf(entry.id + "-") === 0) return key.slice(entry.id.length + 1);
+    return key;
+  }
+
+  // The trust marker: the words stay plain, the source names are links.
+  function srcMark(entry) {
+    return (entry.evidence === "vendor" ? "vendor page" : "directory");
+  }
+
   function srcLinks(entry) {
     return (entry.sources || []).map(function (key) {
       var url = window.SOURCES[key];
       if (!url) return "";
-      var name = key;
-      if (key.indexOf(entry.id + "-") === 0) name = key.slice(entry.id.length + 1);
-      else if (key !== entry.id) name = key;
-      else name = "site";
-      return '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + esc(name) + "</a>";
+      return '<a href="' + esc(url) + '" target="_blank" rel="noopener">' +
+        esc(srcLabel(entry, key)) + "</a>";
     }).join("");
   }
 
@@ -44,8 +53,13 @@
     var tags = [
       '<span class="tag tag--' + esc(e.tier) + '">' + esc(TIER_LABEL[e.tier]) + "</span>",
       e.pick ? '<span class="tag tag--pick">top pick</span>' : "",
-      '<span class="tag tag--plain">' + esc(CAT_LABEL[e.category] || e.category) + "</span>",
-      e.how !== "none" ? '<span class="tag tag--plain">' + esc(HOW_LABEL[e.how] || e.how) + "</span>" : ""
+      '<button type="button" class="tag tag--plain tag--link" data-tag-cat="' + esc(e.category) +
+        '" title="Show every ' + esc(CAT_LABEL[e.category] || e.category) + ' entry">' +
+        esc(CAT_LABEL[e.category] || e.category) + "</button>",
+      e.how !== "none"
+        ? '<button type="button" class="tag tag--plain tag--link" data-tag-how="' + esc(e.how) +
+          '" title="Show every entry paid for this way">' + esc(HOW_LABEL[e.how] || e.how) + "</button>"
+        : ""
     ].join("");
 
     var catches = e.catch.map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("");
@@ -104,9 +118,16 @@
 
         '<div class="drow-id">',
           '<a class="drow-name" href="' + esc(e.url) + '" target="_blank" rel="noopener">' + esc(e.name) + "</a>",
-          '<span class="drow-host">' + esc(host(e.url)) + "</span>",
-          '<span class="drow-cat">' + esc(CAT_LABEL[e.category] || e.category) +
-            (e.how !== "none" ? ' <i>·</i> ' + esc(HOW_LABEL[e.how]) : "") + "</span>",
+          '<a class="drow-host" href="' + esc(e.url) + '" target="_blank" rel="noopener">' +
+            esc(host(e.url)) + "</a>",
+          '<span class="drow-cat">',
+            '<button type="button" class="tag--link" data-tag-cat="' + esc(e.category) + '">' +
+              esc(CAT_LABEL[e.category] || e.category) + "</button>",
+            e.how !== "none"
+              ? '<i>·</i><button type="button" class="tag--link" data-tag-how="' + esc(e.how) + '">' +
+                esc(HOW_LABEL[e.how]) + "</button>"
+              : "",
+          "</span>",
         "</div>",
 
         '<div class="drow-body">',
@@ -128,7 +149,10 @@
         '<div class="drow-meta">',
           '<span class="drow-tier">' + esc(TIER_LABEL[e.tier]) + "</span>",
           e.pick ? '<span class="drow-pick">pick</span>' : "",
-          '<span class="drow-src">' + (e.evidence === "vendor" ? "vendor page" : "directory") + "</span>",
+          '<span class="drow-src">' + srcLinks(e) + "</span>",
+          '<span class="drow-ev ev ev--' + esc(e.evidence) + '" title="' +
+            (e.evidence === "vendor" ? "Read on the vendor's own page" : "Details from a probed directory") +
+          '">' + srcMark(e) + "</span>",
         "</div>",
 
       "</article>"
@@ -203,9 +227,45 @@
     });
   });
 
+  // Deep link support: /?q=ads or /?tier=forever (used by the SearchAction
+  // structured data and by any link we share).
+  (function readUrl() {
+    var params = new URLSearchParams(window.location.search);
+    var q = params.get("q");
+    var tier = params.get("tier");
+    if (tier && ["forever", "limited", "reference", "all"].indexOf(tier) !== -1) {
+      var chip = chipBar.querySelector('[data-filter="' + tier + '"]');
+      if (chip) {
+        Array.prototype.forEach.call(chipBar.querySelectorAll(".chip"), function (c) {
+          c.classList.toggle("is-on", c === chip);
+        });
+        state.filter = tier;
+      }
+    }
+    if (q) {
+      searchEl.value = q;
+      state.query = q.trim().toLowerCase();
+    }
+  })();
+
   searchEl.addEventListener("input", function () {
     state.query = searchEl.value.trim().toLowerCase();
     apply();
+  });
+
+  // Clicking a tag on an entry filters the list by that word.
+  document.addEventListener("click", function (ev) {
+    var tag = ev.target.closest("[data-tag-cat], [data-tag-how]");
+    if (!tag) return;
+    var label = tag.dataset.tagCat
+      ? (CAT_LABEL[tag.dataset.tagCat] || tag.dataset.tagCat)
+      : (HOW_LABEL[tag.dataset.tagHow] || tag.dataset.tagHow);
+    searchEl.value = label;
+    state.query = label.toLowerCase();
+    apply();
+    var listTop = document.getElementById("list");
+    if (listTop) window.scrollTo({ top: listTop.getBoundingClientRect().top + window.scrollY - 60, behavior: "smooth" });
+    searchEl.focus({ preventScroll: true });
   });
 
   document.addEventListener("keydown", function (ev) {
@@ -216,4 +276,30 @@
   });
 
   apply();
+
+  // Fill the ItemList structured data from the real data, so search engines see
+  // the same 42 entries a reader does (and only those marked free forever first).
+  (function fillItemList() {
+    var node = document.getElementById("itemlist-ld");
+    if (!node) return;
+    try {
+      var data = JSON.parse(node.textContent);
+      var list = (data["@graph"] || []).filter(function (n) { return n["@type"] === "ItemList"; })[0];
+      if (!list) return;
+      var order = { forever: 0, limited: 1, reference: 2 };
+      var sorted = window.TOOLS.slice().sort(function (a, b) {
+        return (order[a.tier] - order[b.tier]) || (a.pick === b.pick ? 0 : a.pick ? -1 : 1);
+      });
+      list.itemListElement = sorted.map(function (e, i) {
+        return {
+          "@type": "ListItem",
+          position: i + 1,
+          name: e.name,
+          url: e.url,
+          description: e.tagline + " " + TIER_LABEL[e.tier] + ". The catch: " + e.catch[0]
+        };
+      });
+      node.textContent = JSON.stringify(data);
+    } catch (err) { /* structured data is a bonus, never block the page */ }
+  })();
 })();

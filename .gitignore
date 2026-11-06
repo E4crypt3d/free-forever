@@ -38,6 +38,10 @@ screenshots/
 *.jpg
 *.jpeg
 *.webp
+# …but the real site assets are committed: the share card is what
+# WhatsApp and X fetch, so it must be in the repo and deployed.
+!assets/og-card.png
+!assets/favicon.svg
 
 # ── Local server / environment noise ────────────────────────────
 *.log

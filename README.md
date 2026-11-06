@@ -180,6 +180,53 @@ If you cannot name it, do not paste it.
 
 ---
 
+## Sharing it
+
+Paste the link into WhatsApp, X, LinkedIn, Slack or Discord and it unfurls with a title,
+a description and the share card. That is not automatic — it comes from meta tags and an
+image, and each platform has its own rules. What is set up here:
+
+| Platform | What it reads | What we did |
+|:--|:--|:--|
+| **WhatsApp** | `og:title`, `og:description`, `og:url`, `og:image` | Image is 1200×630, 40KB, 1.9:1 — inside WhatsApp's limits (≥300px wide, ≤4:1, under 600KB) |
+| **X / Twitter** | `twitter:card`, then falls back to `og:*` | `summary_large_image` is declared, because that one tag has **no** fallback |
+| **Facebook, LinkedIn, Slack, Discord, iMessage** | Open Graph | The same four tags serve all of them |
+
+**Where it lives:** the card is `assets/og-card.png`. Replace that file to change the
+preview. Keep it 1200×630, under 600KB, and no wider than 4:1 or WhatsApp will skip it.
+
+**The head must stay near the top.** WhatsApp only reads the first 300KB of HTML. Ours
+closes at about 6KB, so there is plenty of room — but do not move the meta tags down.
+
+**Why the tags are duplicated when `og:` would do.** X reads `og:title` if
+`twitter:title` is missing, so only `twitter:card` is strictly required. The others are
+declared anyway so the card reads correctly even if a platform changes its fallback.
+
+**Expect cached previews.** X caches for around seven days and has no purge tool since
+the old Card Validator was retired. WhatsApp caches with no public debugger. If a preview
+looks stale after a change, share the link with `?v=2` appended to bust it.
+
+**Tests you can run yourself:**
+
+- WhatsApp and X: paste the link into a chat and watch what happens. That is the only
+  fully accurate check, because the sender's own phone fetches it.
+- Facebook: [Sharing Debugger](https://developers.facebook.com/tools/debug/) — paste the
+  URL, then **Scrape Again**.
+- The search side: [(Google) Rich Results Test](https://search.google.com/test/rich-results)
+  and [Schema Markup Validator](https://validator.schema.org/).
+
+**Search engines** get `robots.txt`, `sitemap.xml`, a canonical URL and structured data
+that lists all 42 entries. After the first deploy, submit the sitemap once in
+[Google Search Console](https://search.google.com/search-console) — nothing will index
+you quickly without that.
+
+> [!NOTE]
+> **If you fork this to your own domain**, the absolute URLs in `index.html`
+> (`og:url`, `og:image`, canonical, structured data), `sitemap.xml` and `robots.txt` all
+> still say `e4crypt3d.github.io`. Change them, or your preview will point at this copy.
+
+---
+
 ## Publishing it
 
 You do not need this to *read* the page — double-clicking `index.html` works forever.

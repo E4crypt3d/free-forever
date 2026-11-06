@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://e4crypt3d.github.io/free-forever/</loc>
+    <lastmod>2026-11-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://e4crypt3d.github.io/free-forever/assets/og-card.png</image:loc>
+      <image:title>Free, or just free for now?</image:title>
+      <image:caption>42 AI coding tools: 13 free forever, 24 limited free, 5 reference.</image:caption>
+    </image:image>
+  </url>
+</urlset>
