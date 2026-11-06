@@ -1,0 +1,59 @@
+# ── Operating system cruft ──────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── Editor / IDE ────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-workspace
+*.sublime-project
+
+# ── This is a static site: no build step, no install ────────────
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+bun.lockb
+dist/
+build/
+out/
+.cache/
+.parcel-cache/
+
+# ── Screenshots and scratch work from checking the layout ───────
+_shots/
+screenshots/
+*.png
+*.jpg
+*.jpeg
+*.webp
+
+# ── Local server / environment noise ────────────────────────────
+*.log
+npm-debug.log*
+.env
+.env.*
+!.env.example
+
+# ── Keep the deploy workflow (it lives in a dot-folder) ─────────
+!.github/
+!.github/workflows/
+!.github/workflows/*.yml
+
+# ── Temporary research dumps (raw page saves used to verify) ────
+/tmp-dumps/
+*.raw.html
+*.orig
+*.bak
+*.backup.*

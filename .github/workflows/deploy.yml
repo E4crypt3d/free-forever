@@ -1,0 +1,75 @@
+name: Deploy to GitHub Pages
+
+# Publishes the site every time you push to main. There is no build step —
+# the repository *is* the website — so this just uploads it and deploys.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # lets you re-run it by hand from the Actions tab
+
+# Allow this workflow to publish to Pages and prove who it is.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# If you push twice quickly, let the newest deploy finish. Do not cancel a
+# half-finished deployment — that can leave Pages serving nothing.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # A broken push should not go live. These are cheap checks.
+      - name: Check the site is not broken
+        run: |
+          set -e
+          for f in index.html assets/style.css assets/app.js data/tools.js; do
+            test -s "$f" || { echo "::error file=$f::missing or empty"; exit 1; }
+          done
+          node --check assets/app.js
+          node --check data/tools.js
+          # Every entry must have the fields the page renders.
+          node -e '
+            global.window = {};
+            eval(require("fs").readFileSync("data/tools.js", "utf8"));
+            const tools = window.TOOLS;
+            const need = ["id","url","name","tier","tagline","free","howPaid","catch","surfaces","licence","evidence","verified"];
+            let bad = 0;
+            const ids = new Set();
+            for (const t of tools) {
+              for (const k of need) {
+                if (t[k] === undefined || t[k] === "") { console.log(`::error::${t.id || "?"} is missing ${k}`); bad++; }
+              }
+              if (ids.has(t.id)) { console.log(`::error::duplicate id ${t.id}`); bad++; }
+              ids.add(t.id);
+              if (!["forever","limited","reference"].includes(t.tier)) { console.log(`::error::${t.id} has bad tier ${t.tier}`); bad++; }
+              if (!Array.isArray(t.catch) || !t.catch.length) { console.log(`::error::${t.id} has no catch`); bad++; }
+            }
+            const counts = { forever:0, limited:0, reference:0 };
+            tools.forEach(t => counts[t.tier]++);
+            console.log(`entries: ${tools.length} — forever ${counts.forever}, limited ${counts.limited}, reference ${counts.reference}`);
+            if (bad) process.exit(1);
+          '
+
+      - name: Upload the site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
