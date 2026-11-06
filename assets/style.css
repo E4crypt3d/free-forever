@@ -903,3 +903,44 @@ h1, h2, h3 { margin: 0; }
   .drow-ev.ev--directory { color: var(--amber); background: var(--amber-bg); }
   .drow-meta { justify-items: end; }
 }
+
+/* ══════════════════════════════════════════════════════════════
+   TAG BUTTONS MUST NOT LOOK LIKE BROWSER BUTTONS
+   The category and funding tags are real <button> elements so they
+   can filter on click, which means every native style has to go.
+   ══════════════════════════════════════════════════════════════ */
+
+.tag--link,
+.drow-cat .tag--link {
+  appearance: none;
+  -webkit-appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  color: inherit;
+  cursor: pointer;
+  text-align: left;
+  border-radius: 3px;
+}
+.tag--link:hover { color: var(--ink); }
+.tag--link:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+
+/* pill-shaped tags keep a pill, but drawn by us rather than the browser */
+.tag.tag--link {
+  padding: 3px 6px;
+  border: 1px solid var(--line-2);
+  background: transparent;
+}
+.tag.tag--link:hover { border-color: var(--ink); background: var(--paper); }
+
+/* desktop category line: plain text that underlines on hover */
+.drow-cat .tag--link {
+  border-bottom: 1px solid transparent;
+  padding: 0 0 1px;
+}
+.drow-cat .tag--link:hover { border-bottom-color: var(--ink); color: var(--ink); }
+.drow-cat i { margin: 0 3px; }
