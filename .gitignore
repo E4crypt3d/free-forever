@@ -61,3 +61,6 @@ npm-debug.log*
 *.orig
 *.bak
 *.backup.*
+
+# ── Local tool state (agent memory, sessions, caches) ───────────
+.workbuddy-ai/

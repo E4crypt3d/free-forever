@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Free Forever — which AI coding tools are actually free, and which are only a trial</title>
 <meta name="description" content="42 AI coding tools sorted by how free they really are: 13 free forever, 24 limited trials, 5 reference. Every number read from the vendor's own page, with the catch included.">
-<meta name="theme-color" content="#f7f5ee">
+<meta name="theme-color" content="#f2f3ee">
 <meta name="color-scheme" content="light">
 <meta name="author" content="free forever">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
@@ -44,7 +44,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 
 <script type="application/ld+json" id="itemlist-ld">
@@ -132,8 +132,7 @@
 
   <section class="hero">
     <div class="col">
-      <p class="eyebrow">42 tools · 13 free forever · 24 limited · 5 reference</p>
-      <h1>Free, or just&nbsp;free&nbsp;for&nbsp;now?</h1>
+      <h1>Free, or just free for now?</h1>
       <p class="standfirst">
         Most “free AI coding tools” lists put an ad-funded agent that costs nothing forever
         next to a one-time trial credit and call them the same thing. This one splits them
@@ -150,34 +149,37 @@
     <a class="tier-card tier-card--forever" href="#list" data-jump="forever">
       <span class="tier-n">13</span>
       <span class="tier-t">Free forever</span>
-      <span class="tier-d">No card. Funded by ads, a vendor, or your own hardware. Nothing expires.</span>
+      <span class="tier-d">No card. No expiry.</span>
     </a>
     <a class="tier-card tier-card--limited" href="#list" data-jump="limited">
       <span class="tier-n">24</span>
       <span class="tier-t">Limited free</span>
-      <span class="tier-d">A real free tier — but capped, promotional, or credits that run out.</span>
+      <span class="tier-d">Capped, promotional, or credits that run out.</span>
     </a>
     <a class="tier-card tier-card--reference" href="#list" data-jump="reference">
       <span class="tier-n">5</span>
       <span class="tier-t">Reference</span>
-      <span class="tier-d">Directories and student bundles. Not tools — places to check the tools.</span>
+      <span class="tier-d">Not tools — places to check them.</span>
     </a>
   </section>
 
-  <section class="list" id="list">
+  <section class="list" id="list" aria-labelledby="list-title">
     <div class="col">
+      <h2 class="vh" id="list-title">The list of AI coding tools</h2>
       <div class="controls">
-        <div class="chips" id="filters" role="group" aria-label="Filter">
-          <button class="chip is-on" data-filter="forever">Free forever <b>13</b></button>
-          <button class="chip" data-filter="limited">Limited <b>24</b></button>
-          <button class="chip" data-filter="reference">Reference <b>5</b></button>
-          <button class="chip" data-filter="all">All <b>42</b></button>
+        <div class="chips" id="filters" role="group" aria-label="Filter by tier">
+          <button type="button" class="chip is-on" data-filter="forever" aria-pressed="true">Free forever <b>13</b></button>
+          <button type="button" class="chip" data-filter="limited" aria-pressed="false">Limited <b>24</b></button>
+          <button type="button" class="chip" data-filter="reference" aria-pressed="false">Reference <b>5</b></button>
+          <button type="button" class="chip" data-filter="all" aria-pressed="false">All <b>42</b></button>
         </div>
-        <label class="search">
-          <span class="vh">Search tools</span>
+        <div class="search">
+          <label class="vh" for="search">Search tools</label>
           <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.5 12.5 17 17"/></svg>
-          <input type="search" id="search" placeholder="ads, terminal, Gemini, licence…" autocomplete="off">
-        </label>
+          <input type="search" id="search" placeholder="ads, terminal, Gemini…" autocomplete="off" aria-keyshortcuts="/">
+          <button type="button" class="search-clear" id="clear-search" hidden aria-label="Clear the search">&times;</button>
+          <kbd class="search-hint" aria-hidden="true">/</kbd>
+        </div>
       </div>
       <p class="count" id="count" aria-live="polite"></p>
 
@@ -186,14 +188,20 @@
 
       <!-- Phone / tablet: full cards. Hidden on desktop. -->
       <div id="cards" class="stack"></div>
-      <p class="empty" id="empty" hidden>Nothing matches. Try “ads”, “terminal”, “free API” or clear the search.</p>
+      <div class="empty" id="empty" hidden>
+        <p class="empty-title">Nothing matches that.</p>
+        <p class="empty-hint">Try “ads”, “terminal” or “free API” — or start again.</p>
+        <div class="empty-actions">
+          <button type="button" class="btn" id="reset-search">Clear search</button>
+          <button type="button" class="btn btn--quiet" id="show-all">Show all 42 tools</button>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="section" id="tiers">
     <div class="col">
       <header class="sechead">
-        <p class="eyebrow">The split that matters</p>
         <h2>Three tiers, because “free” is not one thing</h2>
         <p class="seclede">
           A tool can be free in the sense that you will never pay for it, or free in the sense
@@ -225,7 +233,6 @@
   <section class="section" id="funding">
     <div class="col">
       <header class="sechead">
-        <p class="eyebrow">Where the money comes from</p>
         <h2>Six ways a tool can cost you nothing</h2>
       </header>
       <ul class="funding">
@@ -272,7 +279,6 @@
   <section class="section" id="checks">
     <div class="col">
       <header class="sechead">
-        <p class="eyebrow">Before you install anything</p>
         <h2>Six questions the product page will not answer</h2>
       </header>
       <ol class="checks">
@@ -307,7 +313,6 @@
   <section class="section" id="method">
     <div class="col">
       <header class="sechead">
-        <p class="eyebrow">Method</p>
         <h2>How this was checked, and what was not</h2>
       </header>
       <div class="method">
