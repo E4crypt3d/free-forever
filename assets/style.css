@@ -173,6 +173,31 @@ ul, ol { margin: 0; }
 }
 .byline strong { color: var(--ink); font-weight: 500; }
 
+/* The one caution that applies to every entry on the page. */
+.notice {
+  background: var(--flag-wash);
+  border-bottom: 1px solid var(--rule);
+}
+.notice .col { padding-block: 18px; }
+.notice-text {
+  font-size: 16px; line-height: 1.55;
+  color: var(--ink-2);
+  max-width: 78ch;
+  text-wrap: pretty;
+}
+.notice-text b {
+  color: var(--flag);
+  font-weight: 600;
+}
+.notice-text::before {
+  content: "";
+  display: inline-block;
+  width: 8px; height: 8px;
+  margin-right: 10px;
+  background: var(--flag);
+  vertical-align: 1px;
+}
+
 /* ─────────────────────────────────────────────
    The three tiers, read as a statement
    ───────────────────────────────────────────── */
