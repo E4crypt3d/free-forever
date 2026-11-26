@@ -6,6 +6,7 @@
   var HOW_LABEL = {
     ads: "Ads in the tool",
     "ads+offers": "Ads + offerwall",
+    "ads+share": "Ads + revenue share",
     vendor: "Vendor-funded",
     gateway: "Free model pool",
     local: "Your own hardware",
@@ -221,6 +222,14 @@
     var shown = window.TOOLS.filter(visible).length;
     empty.hidden = shown > 0;
     table.hidden = shown === 0;
+    // Every count, date and funding bucket on the page is rendered from
+    // window.TOOLS (see deriveNumbers), so a data edit can never leave a stale
+    // number in the prose. These two attributes let the CSS drop the tier
+    // badge when the list is already filtered to that tier.
+    mount.dataset.filter = state.filter;
+    table.dataset.filter = state.filter;
+    if (expandBtn) syncRows(expandBtn.getAttribute("aria-pressed") === "true");
+    paintExpand();
     countEl.textContent = shown + (shown === 1 ? " tool" : " tools") +
       (state.filter !== "all" ? " · " + TIER_LABEL[state.filter] : " · All tiers") +
       (state.query ? " · matching “" + state.query + "”" : "");
@@ -303,6 +312,11 @@
       });
       more.setAttribute("aria-expanded", open ? "false" : "true");
       more.textContent = open ? "+ " + list.querySelectorAll(".catch-extra").length + " more" : "Show less";
+      // Keep the one-click "expand all" control honest about the new state.
+      if (expandBtn) {
+        expandBtn.setAttribute("aria-pressed", rowsFullyOpen() ? "true" : "false");
+        paintExpand();
+      }
     }
   });
 
@@ -331,6 +345,117 @@
   window.addEventListener("popstate", function () { readUrl(); apply(); });
   readUrl();
   apply();
+
+  // ── Every number on the page is derived, never typed ──────────────────────
+  // Phone cards, desktop rows, tier strip, chips, footer and the funding
+  // buckets all read back from window.TOOLS. Editing data/tools.js cannot
+  // leave a stale count or date in the prose again.
+  (function deriveNumbers() {
+    var counts = { forever: 0, limited: 0, reference: 0 };
+    window.TOOLS.forEach(function (t) { counts[t.tier] += 1; });
+    counts.all = window.TOOLS.length;
+
+    Array.prototype.forEach.call(document.querySelectorAll("[data-count]"), function (el) {
+      var n = counts[el.dataset.count];
+      if (typeof n === "number") el.textContent = n;
+    });
+
+    // One bucket per entry, decided by `how` alone: no tool is counted twice
+    // and nothing is hidden behind the word "several".
+    var BUCKET = {
+      ads: "ads",
+      "ads+offers": "offers",
+      "ads+share": "share",
+      vendor: "vendor",
+      gateway: "gateway",
+      local: "local"
+    };
+    var buckets = {};
+    window.TOOLS.forEach(function (t) {
+      var b = BUCKET[t.how];
+      if (!b) return; // reference entries are not tools and have no funding
+      (buckets[b] = buckets[b] || []).push(t.name);
+    });
+    Object.keys(buckets).forEach(function (key) {
+      var names = buckets[key];
+      var count = document.querySelector('[data-fund="' + key + '"]');
+      if (count) count.textContent = names.length + (names.length === 1 ? " entry" : " entries");
+      var who = document.querySelector('[data-fund-who="' + key + '"]');
+      if (who) {
+        var head = names.slice(0, 8);
+        who.textContent = head.join(" · ") +
+          (names.length > head.length ? " · and " + (names.length - head.length) + " more" : "");
+      }
+    });
+
+    // The badge in the top bar shows the newest verification date in the data.
+    var badge = document.querySelector("[data-latest-verified]");
+    if (badge) {
+      var latest = window.TOOLS.map(function (t) { return t.verified; }).sort().pop();
+      var parts = (latest || "").split("-");
+      if (parts.length === 3) {
+        badge.textContent = "re-checked " + parts[2] + "·" + parts[1] + "·" + parts[0].slice(2);
+      }
+    }
+  })();
+
+  // ── One control to read every catch ───────────────────────────────────────
+  // Desktop puts all but the first catch of each row behind "+ N more". Reading
+  // the lot used to mean forty-two clicks; this makes it one.
+  var expandBtn = document.getElementById("expand-catches");
+
+  function desktopRows() {
+    return Array.prototype.filter.call(table.children, function (node) {
+      return !node.hidden && node.offsetParent !== null;
+    });
+  }
+
+  function rowsFullyOpen() {
+    var rows = desktopRows().filter(function (row) {
+      return row.querySelector("[data-expand-catches]");
+    });
+    if (!rows.length) return false;
+    return rows.every(function (row) {
+      return row.querySelector("[data-expand-catches]").getAttribute("aria-expanded") === "true";
+    });
+  }
+
+  function syncRows(open) {
+    Array.prototype.forEach.call(table.children, function (row) {
+      if (row.hidden) return;
+      var more = row.querySelector("[data-expand-catches]");
+      if (!more) return;
+      var list = document.getElementById(more.getAttribute("aria-controls"));
+      Array.prototype.forEach.call(list.querySelectorAll(".catch-extra"), function (li) {
+        li.hidden = !open;
+      });
+      more.setAttribute("aria-expanded", open ? "true" : "false");
+      more.textContent = open
+        ? "Show less"
+        : "+ " + list.querySelectorAll(".catch-extra").length + " more";
+    });
+  }
+
+  function paintExpand() {
+    if (!expandBtn) return;
+    // Only meaningful where the collapsing rows are the ones on screen.
+    expandBtn.hidden = desktopRows().length === 0;
+    var on = expandBtn.getAttribute("aria-pressed") === "true";
+    expandBtn.textContent = on ? "Collapse all catches" : "Expand all catches";
+  }
+
+  if (expandBtn) {
+    expandBtn.addEventListener("click", function () {
+      var open = expandBtn.getAttribute("aria-pressed") !== "true";
+      expandBtn.setAttribute("aria-pressed", open ? "true" : "false");
+      syncRows(open);
+      paintExpand();
+    });
+    window.addEventListener("resize", paintExpand);
+    // apply() above ran before this listener existed; bring it in line now.
+    syncRows(false);
+  }
+  paintExpand();
 
   // Fill the ItemList structured data from the real data, so search engines see
   // the same 42 entries a reader does (and only those marked free forever first).

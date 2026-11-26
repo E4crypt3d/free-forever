@@ -20,7 +20,8 @@ get the bill. So this list splits them first, then tells you the catch.
 
 > [!IMPORTANT]
 > **How to open it:** double-click `index.html`. It opens in your browser like any
-> website. No install, no account, no terminal. It works offline except for the fonts.
+> website. No install, no account, no terminal. It works offline, fonts included — the
+> three typefaces are self-hosted in `assets/fonts/` rather than fetched from Google.
 
 ---
 
@@ -107,7 +108,8 @@ Two labels on every entry tell you how much to trust it:
   re-checks its rows on a schedule. Weaker. Follow the link if it matters.
 
 **Anything marked `+2 more in the full entry`** has extra catches kept out of the short
-list so the page stays readable. On a phone you get all of them.
+list so the page stays readable. On a phone you get all of them; on a desktop the
+**Expand all catches** button above the list opens every one of them at once.
 
 ---
 

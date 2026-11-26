@@ -42,9 +42,7 @@
 <meta name="twitter:image" content="https://e4crypt3d.github.io/free-forever/assets/og-card.png">
 <meta name="twitter:image:alt" content="Free, or just free for now? 13 tools free forever, 24 limited free, 5 reference.">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/fonts.css">
 <link rel="stylesheet" href="assets/style.css">
 
 <script type="application/ld+json" id="itemlist-ld">
@@ -124,7 +122,7 @@
       <a href="#checks">Checklist</a>
       <a href="#method">Method</a>
     </nav>
-    <span class="verified">read 06·11·26</span>
+    <span class="verified" data-latest-verified>re-checked 26·11·26</span>
   </div>
 </header>
 
@@ -156,17 +154,17 @@
 
   <section class="tierstrip" aria-label="Jump to a tier">
     <a class="tier-card tier-card--forever" href="#list" data-jump="forever">
-      <span class="tier-n">13</span>
+      <span class="tier-n" data-count="forever">13</span>
       <span class="tier-t">Free forever</span>
       <span class="tier-d">No card. No expiry.</span>
     </a>
     <a class="tier-card tier-card--limited" href="#list" data-jump="limited">
-      <span class="tier-n">24</span>
+      <span class="tier-n" data-count="limited">24</span>
       <span class="tier-t">Limited free</span>
       <span class="tier-d">Capped, promotional, or credits that run out.</span>
     </a>
     <a class="tier-card tier-card--reference" href="#list" data-jump="reference">
-      <span class="tier-n">5</span>
+      <span class="tier-n" data-count="reference">5</span>
       <span class="tier-t">Reference</span>
       <span class="tier-d">Not tools — places to check them.</span>
     </a>
@@ -177,10 +175,10 @@
       <h2 class="vh" id="list-title">The list of AI coding tools</h2>
       <div class="controls">
         <div class="chips" id="filters" role="group" aria-label="Filter by tier">
-          <button type="button" class="chip is-on" data-filter="forever" aria-pressed="true">Free forever <b>13</b></button>
-          <button type="button" class="chip" data-filter="limited" aria-pressed="false">Limited <b>24</b></button>
-          <button type="button" class="chip" data-filter="reference" aria-pressed="false">Reference <b>5</b></button>
-          <button type="button" class="chip" data-filter="all" aria-pressed="false">All <b>42</b></button>
+          <button type="button" class="chip is-on" data-filter="forever" aria-pressed="true">Free forever <b data-count="forever">13</b></button>
+          <button type="button" class="chip" data-filter="limited" aria-pressed="false">Limited <b data-count="limited">24</b></button>
+          <button type="button" class="chip" data-filter="reference" aria-pressed="false">Reference <b data-count="reference">5</b></button>
+          <button type="button" class="chip" data-filter="all" aria-pressed="false">All <b data-count="all">42</b></button>
         </div>
         <div class="search">
           <label class="vh" for="search">Search tools</label>
@@ -190,7 +188,11 @@
           <kbd class="search-hint" aria-hidden="true">/</kbd>
         </div>
       </div>
-      <p class="count" id="count" aria-live="polite"></p>
+      <div class="listbar">
+        <p class="count" id="count" aria-live="polite"></p>
+        <button type="button" class="btn btn--quiet btn--small" id="expand-catches"
+                aria-pressed="false" hidden>Expand all catches</button>
+      </div>
 
       <!-- Desktop: wide horizontal entries. Hidden on narrow screens. -->
       <div id="table" class="rows"></div>
@@ -246,40 +248,40 @@
       </header>
       <ul class="funding">
         <li class="fund funding--ads">
-          <h3><span>Ads in the tool</span><b>8 entries</b></h3>
+          <h3><span>Ads in the tool</span><b data-fund="ads">8 entries</b></h3>
           <p>A sponsor line or card inside the session. You pay attention; the advertiser pays the model bill.</p>
           <p class="fund-cost"><b>What it costs you:</b> a licence to analyse your session for ad targeting — read how much.</p>
-          <p class="fund-who">freecode · Freebuff · free-pi · Tenzy · VibeFree · ADCode · Idlen · idlepay</p>
+          <p class="fund-who" data-fund-who="ads">freecode · Freebuff · free-pi · Tenzy · VibeFree · ADCode · Idlen · idlepay</p>
         </li>
         <li class="fund funding--offers">
-          <h3><span>Offerwalls</span><b>1 entry</b></h3>
+          <h3><span>Offerwalls</span><b data-fund="offers">1 entry</b></h3>
           <p>You complete a task in a browser tab and the payout becomes credits, minus a platform cut.</p>
           <p class="fund-cost"><b>What it costs you:</b> time, and screenouts that pay nothing.</p>
-          <p class="fund-who">Clixad</p>
+          <p class="fund-who" data-fund-who="offers">Clixad</p>
         </li>
         <li class="fund funding--vendor">
-          <h3><span>A vendor pays</span><b>Several</b></h3>
+          <h3><span>A vendor pays</span><b data-fund="vendor">Several</b></h3>
           <p>Google, AWS, NVIDIA or a university absorbs the inference to win your account, or a company sells your credits.</p>
           <p class="fund-cost"><b>What it costs you:</b> an account, and the risk that the grant is tuned down — Gemini CLI's free tier ended 18 June 2026.</p>
-          <p class="fund-who">Antigravity · OB-1 · Kiro · Jules · Duck.ai · AI Studio · Groq · NIM · FreeInference</p>
+          <p class="fund-who" data-fund-who="vendor">Antigravity · OB-1 · Kiro · Jules · Duck.ai · AI Studio · Groq · NIM · FreeInference</p>
         </li>
         <li class="fund funding--gateway">
-          <h3><span>A rotating free pool</span><b>3 entries</b></h3>
+          <h3><span>A rotating free pool</span><b data-fund="gateway">3 entries</b></h3>
           <p>A gateway prices some open models at zero and changes the list as its costs move.</p>
           <p class="fund-cost"><b>What it costs you:</b> the model you chose disappearing mid-project.</p>
-          <p class="fund-who">opencode · Kilo Code · OpenRouter</p>
+          <p class="fund-who" data-fund-who="gateway">opencode · Kilo Code · OpenRouter</p>
         </li>
         <li class="fund funding--share">
-          <h3><span>Revenue back to you</span><b>3 entries</b></h3>
+          <h3><span>Revenue back to you</span><b data-fund="share">3 entries</b></h3>
           <p>The ad money is split with the user rather than only absorbed: 50% at ADCode and idlepay, 70% at Idlen.</p>
           <p class="fund-cost"><b>What it costs you:</b> nothing, but earnings follow advertiser demand, not your hours.</p>
-          <p class="fund-who">ADCode · Idlen · idlepay</p>
+          <p class="fund-who" data-fund-who="share">ADCode · Idlen · idlepay</p>
         </li>
         <li class="fund funding--local">
-          <h3><span>Your own hardware</span><b>1 entry</b></h3>
+          <h3><span>Your own hardware</span><b data-fund="local">1 entry</b></h3>
           <p>A local runtime and open weights. No account, no key, no telemetry to a vendor.</p>
           <p class="fund-cost"><b>What it costs you:</b> a GPU and electricity — and capability below the frontier.</p>
-          <p class="fund-who">Ollama</p>
+          <p class="fund-who" data-fund-who="local">Ollama</p>
         </li>
       </ul>
     </div>
@@ -365,7 +367,7 @@
 <footer class="foot">
   <div class="col">
     <p class="foot-brand">free&thinsp;forever</p>
-    <p class="foot-note">Compiled 6 November 2026 · re-checked 26 November 2026 · 42 entries · sources linked per entry · no affiliate links</p>
+    <p class="foot-note">Compiled 6 November 2026 · re-checked 26 November 2026 · <span data-count="all">42</span> entries · sources linked per entry · no affiliate links</p>
     <p class="foot-links"><a href="#list">The list</a><a href="#tiers">Tiers</a><a href="#method">Method</a></p>
   </div>
 </footer>
