@@ -1,0 +1,63 @@
+# free forever
+
+> A directory of 42 AI coding tools, sorted by how free they actually are: 13 free forever (no card, no expiry), 24 limited (a real allowance that runs out) and 5 reference. Every allowance was read from the vendor's own page or from a directory that re-probes its rows, and every entry carries the catch the landing page does not mention. Last read 26 Nov 2026.
+
+This file is for language models and agents. Humans should use https://e4crypt3d.github.io/free-forever/.
+
+Machine-readable copies of the same data:
+
+- [feed.json](https://e4crypt3d.github.io/free-forever/feed.json) — every entry as JSON (id, name, url, tier, free allowance, who pays, the catch as an array, licence, platforms, sources, verification date).
+- [llms-full.txt](https://e4crypt3d.github.io/free-forever/llms-full.txt) — every entry in full Markdown.
+
+How to read the tiers:
+
+- **Free forever** — no card, no expiry. Who pays next month is an advertiser, a vendor, a university or your own hardware.
+- **Limited free** — a genuine free allowance that runs out. Treat a one-time grant or an unpublished number as a trial.
+- **Reference** — not tools: directories that probe their own rows, and student bundles.
+
+Quoting: the entries are summaries of vendors' published numbers, with the source and date on each. Quote the date with the number; free tiers rot fast.
+
+## Entries
+
+- [freecode](https://freecode.sh/) — Free forever — Free access with a daily usage limit; the site says access resets and tells you when.
+- [Freebuff](https://freebuff.com/) — Free forever — 30 hours a day on the free plan — but only in the vendor's 24 “full access” countries. Anywhere else it is 5 hours a day, and 4 over a VPN or proxy. One-hour sessions with unlimited messages; hours reset at midnight in your local timezone and do not roll over.
+- [free-pi](https://freepi.ai/) — Free forever — A daily allowance set by the server — the limits docs deliberately do not state a number. /usage shows a percentage; a warning appears at 80%.
+- [Tenzy](https://tenzy.net/) — Free forever — Fair-use budget of 20h 35m of agent time per cycle, resetting every 15 hours. No card to install.
+- [VibeFree](https://vibefree.dev/) — Free forever — Guest chat needs no account — an advert pays for each message. An account adds a free daily token allowance and VibeBucks.
+- [ADCode](https://adcode.bluethenics.com/) — Free forever — 140 AI credits a day across included models — roughly 20 agent steps a day, per their own comparison.
+- [Clixad](https://clixad.io/) — Free forever — Seven models free every day up to 60,000 credits of usage per account, inside a daily budget shared by all users; Gemini 3.8 Flash joins them until 15 January 2027. The 25,000-credit signup bonus is gone.
+- [Idlen](https://www.idlen.io/) — Free forever — $0 to install. You keep 70% of the ad revenue the wait earns, paid via Stripe, PayPal or as credits.
+- [idlepay](https://www.idlepay.co/) — Free forever — Free to install, no card, 50% revenue share, cash out via Stripe past $10.
+- [Overbrilliant OB-1](https://github.com/Overbrilliant/ob-1) — Free forever — A built-in free-models router — the project documents 150+ free models across 20+ providers — starts with no key or account; new free models reach free users after 30 days.
+- [opencode](https://opencode.ai/) — Free forever — Free-tier chat models, usable inside OpenCode with no key or card.
+- [Google Antigravity](https://antigravity.google/) — Free forever — $0 plan serving gemini-3.8-flash, claude-opus-4.6, claude-sonnet-4.6 and gpt-oss-120b — all four listed “until 2026-11-30”.
+- [Ollama (local models)](https://ollama.com/) — Free forever — Download, pull a model, run it. No key, no account, no card, no telemetry to a vendor.
+- [Kilo Code](https://kilo.ai/pricing) — Limited free — An Auto Free mode plus a keyless OpenAI-compatible gateway on a handful of free open models.
+- [Kiro](https://kiro.dev/) — Limited free — A perpetual free tier on Claude Sonnet and open-weight models — 50 credits a month, non-rolling, on requests served from the US; successor to Amazon Q Developer.
+- [Google Jules](https://jules.google/) — Limited free — 15 async tasks per rolling day, 3 at a time, on Gemini models.
+- [Duck.ai](https://duck.ai/) — Limited free — Six models signed out: GPT-6 Luna, GPT-5.4 mini, Claude 4.5 Haiku, Mistral Small 4, gpt-oss-120b, Gemma 4 31B.
+- [Autohand Code](https://docs.autohand.ai/getting-started/plans-and-pricing/free) — Limited free — 15 credits per rolling 5-hour window, up to 100 a month — one credit is one successful hosted response.
+- [WorkBuddy](https://www.workbuddy.ai/docs/workbuddy/pricing) — Limited free — 100 credits a month, 5,000 code completions a month, 3 automated tasks — plus a limited-time promo of 30 credits a day.
+- [DeepAI](https://deepai.org/pricing) — Limited free — Limited HD images and editing, limited standard chat, up to 250 “Theos” a day in DeepAI Code, 60s/day of voice chat.
+- [Cursor (Hobby)](https://cursor.com/pricing) — Limited free — A limited free allotment of agent requests and completions on the Hobby plan.
+- [TRAE (TraeCode)](https://www.trae.ai/pricing) — Limited free — Auto mode only on the free plan, plus a one-time Basic usage allowance and limited autocompletion.
+- [Qoder](https://qoder.com/pricing) — Limited free — Ongoing free basic-model allowance, a Qwen promotion, a 300-credit Pro trial and daily credits to claim.
+- [GitHub Copilot Free](https://github.com/features/copilot) — Limited free — A free individual plan: 2,000 completions a month plus a chat and agent allowance GitHub does not put a number on.
+- [Codex (ChatGPT Free)](https://learn.chatgpt.com/docs/pricing) — Limited free — Codex on the Free plan, subject to rollout; unlimited text chat with GPT-6 Luna.
+- [Macaly](https://macaly.com/pricing) — Limited free — 1 published app on a Macaly domain, 1M monthly credits, limited usage through ChatGPT and Claude.
+- [bolt.new](https://bolt.new/) — Limited free — A monthly token allowance on the free plan, public and private projects, website hosting.
+- [Google AI Studio (Gemini API)](https://aistudio.google.com/) — Limited free — A free tier on the Gemini API — Gemini 3.8 Flash, 3.6 Flash, Gemma 4 and others.
+- [Groq](https://groq.com/) — Limited free — Free plan on gpt-oss-120b, gpt-oss-20b and Qwen 3.8 27B with published limits.
+- [NVIDIA NIM](https://build.nvidia.com/) — Limited free — Free endpoints on models NVIDIA marks “Free Endpoint”, including GLM, Nemotron, Gemma and gpt-oss.
+- [OpenRouter](https://openrouter.ai/) — Limited free — Models priced at zero, and an `openrouter/free` router that picks one at random for each request.
+- [FreeInference (Harvard SEAS)](https://freeinference.org/) — Limited free — Free open models — DeepSeek V4 Flash, GLM 5.3 Flash, MiniMax M3, Qwen 3.6 — over OpenAI and Anthropic-shaped endpoints.
+- [LLM7.io](https://llm7.io/) — Limited free — 100,000 input plus output tokens a day on eligible turbo models.
+- [OVHcloud AI Endpoints](https://www.ovhcloud.com/en/public-cloud/ai-endpoints/catalog/) — Limited free — Anonymous OpenAI-compatible calls to gpt-oss-120b, Qwen 3.6 and Qwen 3.8 27B.
+- [Z.ai (Zhipu GLM)](https://z.ai/) — Limited free — GLM 4.7 Flash, 4.5 Flash and 4.6V Flash at zero price.
+- [Cloudflare Workers AI](https://www.cloudflare.com/products/workers-ai/) — Limited free — A daily free allowance of “neurons” across hosted open models.
+- [Pollinations.AI](https://pollinations.ai/) — Limited free — An anonymous legacy text endpoint on text.pollinations.ai (gpt-oss-20b). The current gen.pollinations.ai API needs a key and bills Pollen credits.
+- [awesome-free-ai-coding](https://mvalentsev.github.io/awesome-free-ai-coding/) — Reference — MIT licensed. No tracking, no ads, no affiliate links.
+- [freellm.site](https://www.freellm.site/) — Reference — Free to read; 29 providers marked “always free”.
+- [VibeLedger free-tools index](https://vibeledger.dev/free-ai-coding-tools/) — Reference — Free to read; checked 31 October 2026.
+- [GitHub Student Developer Pack](https://education.github.com/pack) — Reference — Cloud credit, JetBrains IDEs, domains and more, donated by partners.
+- [Azure for Students](https://azure.microsoft.com/en-us/free/students/) — Reference — $100 credit per year, renewable while enrolled.

@@ -195,8 +195,12 @@ image, and each platform has its own rules. What is set up here:
 | **X / Twitter** | `twitter:card`, then falls back to `og:*` | `summary_large_image` is declared, because that one tag has **no** fallback |
 | **Facebook, LinkedIn, Slack, Discord, iMessage** | Open Graph | The same four tags serve all of them |
 
-**Where it lives:** the card is `assets/og-card.png`. Replace that file to change the
-preview. Keep it 1200×630, under 600KB, and no wider than 4:1 or WhatsApp will skip it.
+**Where it lives:** the card is a screenshot of `assets/og-card.html`, and the numbers
+on it come from `data/tools.js`. Change the counts and the generator updates the source;
+re-shoot the PNG with `node scripts/make-cards.mjs`. The deploy fails if the card's
+numbers and the data ever disagree. Keep it 1200×630, under 600KB, and no wider than 4:1
+or WhatsApp will skip it. The icon at `assets/icon-180.png` is shot from
+`assets/icon.html` the same way — an apple-touch-icon has to be square, not a banner.
 
 **The head must stay near the top.** WhatsApp only reads the first 300KB of HTML. Ours
 closes at about 6KB, so there is plenty of room — but do not move the meta tags down.
@@ -222,6 +226,33 @@ looks stale after a change, share the link with `?v=2` appended to bust it.
 that lists all 42 entries. After the first deploy, submit the sitemap once in
 [Google Search Console](https://search.google.com/search-console) — nothing will index
 you quickly without that.
+
+---
+
+## Built to be read by machines
+
+The page draws its list with JavaScript, so a crawler that does not run JavaScript would
+otherwise see a shell. Everything below is generated from `data/tools.js` by
+`scripts/build-static.mjs`, and CI fails if a data edit was committed without re-running
+it — the numbers cannot drift from the page:
+
+| What | Where | Who reads it |
+|:--|:--|:--|
+| Every entry as plain HTML | `<noscript>` inside `index.html` | Crawlers and agents with no JS — 42 entries, 140 catch bullets, all of it |
+| `WebSite`, `Organization`, `WebPage`, `ItemList` with 42 `SoftwareApplication` items | `index.html` | Google, Bing, and anything that parses schema.org |
+| The whole dataset as JSON, stable key names | `feed.json` | Agents, scripts, anyone building on this |
+| A map and a full text dump for language models | `llms.txt`, `llms-full.txt` | LLM crawlers and retrieval systems |
+| `<lastmod>` from the newest `verified` date | `sitemap.xml` | Search engines |
+| Explicit `Allow: /` for named AI crawlers | `robots.txt` | GPTBot, ClaudeBot, PerplexityBot, Google-Extended and friends |
+
+Where a count appears in a title, description or share card, it comes from the data too.
+To change one, edit `data/tools.js` and run:
+
+```bash
+node scripts/build-static.mjs          # rewrites index.html, feed.json, llms*.txt, sitemap.xml
+node scripts/build-static.mjs --check  # what CI runs: fails if anything is stale
+node scripts/make-cards.mjs            # re-shoots the PNGs (needs Chromium)
+```
 
 > [!NOTE]
 > **If you fork this to your own domain**, the absolute URLs in `index.html`
@@ -254,9 +285,11 @@ step, because the folder *is* the website.
 4. Your address appears in the **Actions** run summary when it finishes:
    `https://YOUR-NAME.github.io/free-forever/`
 
-**What the check catches before anything goes live:** a missing or empty file, a
-JavaScript syntax error, an entry with a missing field, a bad tier, an empty catch list,
-or a duplicate ID. It also prints the tier counts, so a run tells you
+**What the check catches before anything goes live:** generated files that no longer
+match `data/tools.js` (`node scripts/build-static.mjs --check`), a share card whose
+numbers disagree with the data, a missing or empty file, a JavaScript syntax error, an
+entry with a missing field, a bad tier, an empty catch list, or a duplicate ID. It also
+prints the tier counts, so a run tells you
 `entries: 42 — forever 13, limited 24, reference 5`.
 
 **If it fails**, the error names the file and the entry, for example

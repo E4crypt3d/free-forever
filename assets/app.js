@@ -465,7 +465,10 @@
     try {
       var data = JSON.parse(node.textContent);
       var list = (data["@graph"] || []).filter(function (n) { return n["@type"] === "ItemList"; })[0];
-      if (!list) return;
+      // scripts/build-static.mjs already wrote all the entries here; only fill
+      // it in when the file shipped an empty list (e.g. opened straight from a
+      // fresh clone before the generator ran).
+      if (!list || (list.itemListElement || []).length) return;
       var order = { forever: 0, limited: 1, reference: 2 };
       var sorted = window.TOOLS.slice().sort(function (a, b) {
         return (order[a.tier] - order[b.tier]) || (a.pick === b.pick ? 0 : a.pick ? -1 : 1);

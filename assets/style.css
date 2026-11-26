@@ -1116,3 +1116,42 @@ ul, ol { margin: 0; }
   .tag--link { display: inline-flex; align-items: center; min-height: 44px; }
   .drow-more { display: inline-flex; align-items: center; min-height: 44px; }
 }
+
+/* ─────────────────────────────────────────────
+   The no-JavaScript copy
+   ───────────────────────────────────────────── */
+
+/* scripts/build-static.mjs writes every entry into <noscript>. It only shows
+   when the script does not run, so it is styled as a plain reading list. */
+.ns-note {
+  margin: 0 0 4px;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--rule);
+  font: 400 15px/1.55 var(--sans);
+  color: var(--ink-2);
+}
+.ns-note a { color: var(--ink); }
+.ns-list { border-top: 1px solid var(--rule); margin-top: 16px; }
+.ns-entry { padding: 22px 0 24px; border-bottom: 1px solid var(--rule); }
+.ns-entry h3 {
+  font: 600 20px/1.25 var(--display);
+  letter-spacing: -.012em;
+  margin: 0 0 6px;
+}
+.ns-entry h3 a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule-strong); }
+.ns-host { font: 500 12px/1 var(--mono); color: var(--ink-3); margin-left: 8px; letter-spacing: .04em; }
+.ns-tags { margin: 0; font: 500 12px/1.5 var(--mono); letter-spacing: .05em; text-transform: uppercase; color: var(--ink-3); }
+.ns-entry dl {
+  display: grid; grid-template-columns: max-content minmax(0, 1fr);
+  gap: 6px 16px; margin: 12px 0 0; font-size: 15px;
+}
+.ns-entry dt { font: 500 12px/1.5 var(--mono); letter-spacing: .07em; text-transform: uppercase; color: var(--ink-3); }
+.ns-entry dd { margin: 0; color: var(--ink-2); }
+.ns-catch { margin: 12px 0 0; padding-left: 18px; color: var(--flag); font-size: 15px; line-height: 1.5; }
+.ns-catch li + li { margin-top: 4px; }
+.ns-src { margin: 12px 0 0; font: 500 12px/1.6 var(--mono); color: var(--ink-3); }
+.ns-src a { color: var(--ink-3); }
+
+@media (min-width: 900px) {
+  .ns-entry dl { grid-template-columns: max-content minmax(0, 1fr); }
+}

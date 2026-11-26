@@ -33,6 +33,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
+      # The meta descriptions, the JSON-LD graph, the <noscript> copy of the
+      # entries, feed.json, llms.txt, llms-full.txt and the sitemap date are all
+      # generated from data/tools.js. Fail if a data edit was committed without
+      # regenerating them:  node scripts/build-static.mjs
+      - name: Check the generated SEO surface is current
+        run: node scripts/build-static.mjs --check
+
       # A broken push should not go live. These are cheap checks.
       - name: Check the site is not broken
         run: |
@@ -42,6 +49,30 @@ jobs:
           done
           node --check assets/app.js
           node --check data/tools.js
+          node --check scripts/build-static.mjs
+          # The share card is a committed screenshot; its numbers must match the
+          # data, or every link preview lies.
+          node -e '
+            const fs = require("fs");
+            global.window = {};
+            eval(fs.readFileSync("data/tools.js", "utf8"));
+            const tools = window.TOOLS;
+            const c = { forever: 0, limited: 0, reference: 0 };
+            for (const t of tools) c[t.tier]++;
+            const card = fs.readFileSync("assets/og-card.html", "utf8");
+            const nums = [...card.matchAll(/<b>(\d+)<\/b>/g)].map(m => Number(m[1]));
+            const want = [c.forever, c.limited, c.reference];
+            if (JSON.stringify(nums) !== JSON.stringify(want)) {
+              console.log(`::error file=assets/og-card.html::card says ${nums.join("/")}, data says ${want.join("/")} — run node scripts/make-cards.mjs`);
+              process.exit(1);
+            }
+            const total = card.match(/(\d+) tools/);
+            if (!total || Number(total[1]) !== tools.length) {
+              console.log("::error file=assets/og-card.html::card total does not match the data — run node scripts/make-cards.mjs");
+              process.exit(1);
+            }
+            console.log(`share card matches the data: ${tools.length} / ${want.join(" / ")}`);
+          '
           # Every entry must have the fields the page renders.
           node -e '
             global.window = {};
