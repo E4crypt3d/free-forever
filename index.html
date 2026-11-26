@@ -765,99 +765,160 @@
 <body>
 <a class="skip" href="#list">Skip to the list</a>
 
-<header class="topbar">
-  <div class="bar">
+<header class="bar">
+  <div class="bar-in">
     <a class="brand" href="#top">
-      <span class="brand-mark">$0</span>
+      <span class="brand-mark" aria-hidden="true">$0</span>
       <span class="brand-name">free&thinsp;forever</span>
     </a>
-    <nav class="nav" aria-label="Sections">
+    <nav class="bar-nav" aria-label="Sections">
       <a href="#list">List</a>
       <a href="#tiers">Tiers</a>
       <a href="#funding">Funding</a>
-      <a href="#checks">Checklist</a>
+      <a href="#checks">Checks</a>
       <a href="#method">Method</a>
     </nav>
-    <span class="verified" data-latest-verified>re-checked 26·11·26</span>
+    <button class="bar-search-btn" type="button" id="jump-search">
+      Search the 42 <kbd>/</kbd>
+    </button>
+    <span class="bar-status" data-latest-verified>checked 26·11·26</span>
   </div>
 </header>
 
 <main id="top">
 
   <section class="hero">
-    <div class="col">
-      <h1>Free, or just free for now?</h1>
-      <p class="standfirst">
-        Most “free AI coding tools” lists put an ad-funded agent that costs nothing forever
-        next to a one-time trial credit and call them the same thing. This one splits them
-        first, then tells you the catch.
-      </p>
-      <p class="byline">
-        Every claim read from the vendor's own page on <strong>6 November 2026</strong>
-        and re-checked on <strong>26 November 2026</strong>.
-        Where the details came from a probed directory instead, the entry says so.
-      </p>
+    <div class="col hero-in">
+      <div>
+        <p class="kicker">An audit of <span data-count="all">42</span> entries, read at the source</p>
+        <h1>Free, or just <em>free for now?</em></h1>
+        <p class="hero-sub">
+          Most lists put an ad-funded agent that costs nothing forever next to a one-time
+          trial credit and call them the same thing. This one splits them first, then prints
+          the catch under every row.
+        </p>
+        <p class="hero-note">
+          <b>Nothing is free either.</b> Every tool here meters what you get — a day's hours,
+          a credit balance, a capped quota — and most take your prompts in return.
+        </p>
+      </div>
+
+      <aside class="readout" aria-label="How the 42 entries split">
+        <div class="readout-head">
+          <span class="kicker">The split</span>
+          <span class="kicker"><span data-count="all">42</span> entries</span>
+        </div>
+        <div class="readout-gauges">
+          <a class="gauge gauge--forever" href="#list" data-jump="forever">
+            <span class="gauge-name">Free forever</span>
+            <span class="gauge-n" data-count="forever">13</span>
+            <span class="gauge-d">No card, no expiry.</span>
+            <span class="gauge-bar" data-bar="forever"><i></i></span>
+          </a>
+          <a class="gauge gauge--limited" href="#list" data-jump="limited">
+            <span class="gauge-name">Limited free</span>
+            <span class="gauge-n" data-count="limited">24</span>
+            <span class="gauge-d">Capped, promotional, or credits that run out.</span>
+            <span class="gauge-bar" data-bar="limited"><i></i></span>
+          </a>
+          <a class="gauge gauge--reference" href="#list" data-jump="reference">
+            <span class="gauge-name">Reference</span>
+            <span class="gauge-n" data-count="reference">5</span>
+            <span class="gauge-d">Not tools — places to check them.</span>
+            <span class="gauge-bar" data-bar="reference"><i></i></span>
+          </a>
+        </div>
+        <div class="readout-foot">
+          <span>read 6 Nov 2026</span>
+          <span>re-checked 26 Nov 2026</span>
+          <a href="feed.json">feed.json</a>
+          <a href="llms.txt">llms.txt</a>
+        </div>
+      </aside>
     </div>
   </section>
 
-  <section class="notice" aria-label="Caution">
-    <div class="col">
-      <p class="notice-text"><b>Nothing is free either.</b> Every tool here meters what you
-      get — a day's hours, a credit balance, a capped quota — and most take your prompts in
-      return. Read the catch before you paste.</p>
-    </div>
+  <section class="board" id="list" aria-labelledby="list-title">
+    <div class="board-in">
+
+      <aside class="rail" aria-label="Filter and sort the list">
+        <div class="rg">
+          <h2 class="vh" id="list-title">The list of AI coding tools</h2>
+          <div class="rg-t"><label class="kicker" for="search">Find an entry</label><span class="kicker">/</span></div>
+          <label class="find" for="search">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.5 12.5 16.5 16.5"/></svg>
+            <input type="search" id="search" placeholder="ads, offline, Gemini…" autocomplete="off" aria-keyshortcuts="/">
+            <button type="button" class="find-clear" id="clear-search" hidden aria-label="Clear the search">&times;</button>
+          </label>
+        </div>
+
+        <details class="rail-more" id="rail-more">
+          <summary>Filters and sort</summary>
+
+          <div class="rg">
+            <div class="rg-t"><span class="kicker">Tier</span><span class="kicker" id="tier-total">42</span></div>
+            <div class="seg" id="filters" role="group" aria-label="Filter by tier">
+              <button type="button" data-filter="forever" aria-pressed="true"><span class="dot" aria-hidden="true"></span>Free forever <b data-count="forever">13</b></button>
+              <button type="button" data-filter="limited" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Limited <b data-count="limited">24</b></button>
+              <button type="button" data-filter="reference" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Reference <b data-count="reference">5</b></button>
+              <button type="button" data-filter="all" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Everything <b data-count="all">42</b></button>
+            </div>
+          </div>
+
+          <div class="rg">
+            <div class="rg-t"><label class="kicker" for="sort">Order</label></div>
+            <select id="sort" class="sortsel">
+              <option value="tier">Tier, then name</option>
+              <option value="name">Name, A–Z</option>
+              <option value="read">Newest check first</option>
+            </select>
+          </div>
+
+          <div class="rg">
+            <div class="rg-t"><span class="kicker">Runs as</span></div>
+            <div class="tags" id="cat-filters" role="group" aria-label="Filter by category"></div>
+          </div>
+
+          <div class="rg">
+            <div class="rg-t"><span class="kicker">Paid by</span></div>
+            <div class="tags" id="how-filters" role="group" aria-label="Filter by who pays"></div>
+          </div>
+
+          <div class="rail-act">
+            <button type="button" class="btn" id="reset-all">Reset all</button>
+          </div>
+        </details>
+      </aside>
+
+      <div class="stage">
+        <div class="stage-head">
+          <p class="count" id="count" aria-live="polite"></p>
+          <button type="button" class="btn" id="expand-catches" aria-pressed="false" hidden>All catches</button>
+        </div>
+
+        <!-- Desktop: a table, one row per entry, the catch underneath it. -->
+        <div id="table"></div>
+
+        <!-- Below 1000px: the same entry as a panel. -->
+        <div id="cards"></div>
+
+        <div class="empty" id="empty" hidden>
+          <p class="empty-title">Nothing matches that.</p>
+          <p class="empty-hint">Try “ads”, “terminal” or “free API” — or start again.</p>
+          <div class="empty-actions">
+            <button type="button" class="btn" id="reset-search">Clear the search</button>
+            <button type="button" class="btn btn--go" id="show-all">Show all <span data-count="all">42</span></button>
+          </div>
+        </div>
+
+        <!-- Crawlers and agents that do not run JavaScript get every entry here. -->
+
+        </div><!-- /.stage -->
+      </div><!-- /.board-in -->
   </section>
 
-  <section class="tierstrip" aria-label="Jump to a tier">
-    <a class="tier-card tier-card--forever" href="#list" data-jump="forever">
-      <span class="tier-n" data-count="forever">13</span>
-      <span class="tier-t">Free forever</span>
-      <span class="tier-d">No card. No expiry.</span>
-    </a>
-    <a class="tier-card tier-card--limited" href="#list" data-jump="limited">
-      <span class="tier-n" data-count="limited">24</span>
-      <span class="tier-t">Limited free</span>
-      <span class="tier-d">Capped, promotional, or credits that run out.</span>
-    </a>
-    <a class="tier-card tier-card--reference" href="#list" data-jump="reference">
-      <span class="tier-n" data-count="reference">5</span>
-      <span class="tier-t">Reference</span>
-      <span class="tier-d">Not tools — places to check them.</span>
-    </a>
-  </section>
-
-  <section class="list" id="list" aria-labelledby="list-title">
-    <div class="col">
-      <h2 class="vh" id="list-title">The list of AI coding tools</h2>
-      <div class="controls">
-        <div class="chips" id="filters" role="group" aria-label="Filter by tier">
-          <button type="button" class="chip is-on" data-filter="forever" aria-pressed="true">Free forever <b data-count="forever">13</b></button>
-          <button type="button" class="chip" data-filter="limited" aria-pressed="false">Limited <b data-count="limited">24</b></button>
-          <button type="button" class="chip" data-filter="reference" aria-pressed="false">Reference <b data-count="reference">5</b></button>
-          <button type="button" class="chip" data-filter="all" aria-pressed="false">All <b data-count="all">42</b></button>
-        </div>
-        <div class="search">
-          <label class="vh" for="search">Search tools</label>
-          <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="8.5" cy="8.5" r="5.5"/><path d="M12.5 12.5 17 17"/></svg>
-          <input type="search" id="search" placeholder="ads, terminal, Gemini…" autocomplete="off" aria-keyshortcuts="/">
-          <button type="button" class="search-clear" id="clear-search" hidden aria-label="Clear the search">&times;</button>
-          <kbd class="search-hint" aria-hidden="true">/</kbd>
-        </div>
-      </div>
-      <div class="listbar">
-        <p class="count" id="count" aria-live="polite"></p>
-        <button type="button" class="btn btn--quiet btn--small" id="expand-catches"
-                aria-pressed="false" hidden>Expand all catches</button>
-      </div>
-
-      <!-- Desktop: wide horizontal entries. Hidden on narrow screens. -->
-      <div id="table" class="rows"></div>
-
-      <!-- Phone / tablet: full cards. Hidden on desktop. -->
-      <div id="cards" class="stack"></div>
-
-      <!-- Crawlers and agents that do not run JavaScript get every entry here. -->
-      <!-- seo:noscript -->
+  <div class="col">
+    <!-- seo:noscript -->
 <noscript id="static-entries">
   <p class="ns-note">This page uses JavaScript for the filters and search. Here is all 42 of it as plain HTML. The same data, machine-readable: <a href="feed.json">feed.json</a> · <a href="llms.txt">llms.txt</a>.</p>
   <div class="ns-list">
@@ -1410,20 +1471,12 @@
   </div>
 </noscript>
 <!-- /seo:noscript -->
-      <div class="empty" id="empty" hidden>
-        <p class="empty-title">Nothing matches that.</p>
-        <p class="empty-hint">Try “ads”, “terminal” or “free API” — or start again.</p>
-        <div class="empty-actions">
-          <button type="button" class="btn" id="reset-search">Clear search</button>
-          <button type="button" class="btn btn--quiet" id="show-all">Show all 42 tools</button>
-        </div>
-      </div>
-    </div>
-  </section>
+  </div>
 
   <section class="section" id="tiers">
-    <div class="col">
+    <div class="col section-in">
       <header class="sechead">
+        <p class="kicker">01 — The tiers</p>
         <h2>Three tiers, because “free” is not one thing</h2>
         <p class="seclede">
           A tool can be free in the sense that you will never pay for it, or free in the sense
@@ -1434,62 +1487,70 @@
 
       <div class="defs">
         <article class="def def--forever">
-          <h3>Free forever</h3>
+          <h3>Free forever <span data-count="forever">13</span></h3>
           <p>The funding does not come from you and does not have an end date: ads, a vendor's own budget, a university grant, or your own hardware.</p>
-          <p class="def-note"><b>How to test it:</b> ask who pays the inference bill next month. If the answer is an advertiser or the vendor, it survives.</p>
+          <p class="def-note"><b>How to test it</b>Ask who pays the inference bill next month. If the answer is an advertiser or the vendor, it survives.</p>
         </article>
         <article class="def def--limited">
-          <h3>Limited free</h3>
+          <h3>Limited free <span data-count="limited">24</span></h3>
           <p>A genuine free allowance that runs out: monthly credits, a one-time grant, an unpublished quota, or a “promotional period” the vendor can end.</p>
-          <p class="def-note"><b>How to test it:</b> find the reset. If the allowance is one-time, or the number is unpublished, treat it as a trial.</p>
+          <p class="def-note"><b>How to test it</b>Find the reset. If the allowance is one-time, or the number is unpublished, treat it as a trial.</p>
         </article>
         <article class="def def--reference">
-          <h3>Reference</h3>
+          <h3>Reference <span data-count="reference">5</span></h3>
           <p>Not a tool. Directories that probe their own rows, and student bundles that need verification to unlock.</p>
-          <p class="def-note"><b>How to test it:</b> follow the evidence link, not the headline count.</p>
+          <p class="def-note"><b>How to test it</b>Follow the evidence link, not the headline count.</p>
         </article>
       </div>
     </div>
   </section>
 
   <section class="section" id="funding">
-    <div class="col">
+    <div class="col section-in">
       <header class="sechead">
+        <p class="kicker">02 — Who pays</p>
         <h2>Six ways a tool can cost you nothing</h2>
+        <p class="seclede">Everything on the page is paid for by someone. The bar is that group's share of the 39 entries that are tools.</p>
       </header>
       <ul class="funding">
-        <li class="fund funding--ads">
-          <h3><span>Ads in the tool</span><b data-fund="ads">8 entries</b></h3>
+        <li class="fund fund--ads">
+          <div class="fund-h"><h3>Ads in the tool</h3><span class="fund-n" data-fund="ads">8 entries</span></div>
+          <span class="fund-meter" data-fund-bar="ads"><i></i></span>
           <p>A sponsor line or card inside the session. You pay attention; the advertiser pays the model bill.</p>
           <p class="fund-cost"><b>What it costs you:</b> a licence to analyse your session for ad targeting — read how much.</p>
           <p class="fund-who" data-fund-who="ads">freecode · Freebuff · free-pi · Tenzy · VibeFree · ADCode · Idlen · idlepay</p>
         </li>
-        <li class="fund funding--offers">
-          <h3><span>Offerwalls</span><b data-fund="offers">1 entry</b></h3>
+        <li class="fund fund--offers">
+          <div class="fund-h"><h3>Offerwalls</h3><span class="fund-n" data-fund="offers">1 entry</span></div>
+          <span class="fund-meter" data-fund-bar="offers"><i></i></span>
           <p>You complete a task in a browser tab and the payout becomes credits, minus a platform cut.</p>
           <p class="fund-cost"><b>What it costs you:</b> time, and screenouts that pay nothing.</p>
           <p class="fund-who" data-fund-who="offers">Clixad</p>
         </li>
-        <li class="fund funding--vendor">
-          <h3><span>A vendor pays</span><b data-fund="vendor">Several</b></h3>
+        <li class="fund fund--vendor">
+          <div class="fund-h"><h3>A vendor pays</h3><span class="fund-n" data-fund="vendor">Several</span></div>
+          <span class="fund-meter" data-fund-bar="vendor"><i></i></span>
           <p>Google, AWS, NVIDIA or a university absorbs the inference to win your account, or a company sells your credits.</p>
           <p class="fund-cost"><b>What it costs you:</b> an account, and the risk that the grant is tuned down — Gemini CLI's free tier ended 18 June 2026.</p>
           <p class="fund-who" data-fund-who="vendor">Antigravity · OB-1 · Kiro · Jules · Duck.ai · AI Studio · Groq · NIM · FreeInference</p>
         </li>
-        <li class="fund funding--gateway">
-          <h3><span>A rotating free pool</span><b data-fund="gateway">3 entries</b></h3>
+        <li class="fund fund--gateway">
+          <div class="fund-h"><h3>A rotating free pool</h3><span class="fund-n" data-fund="gateway">3 entries</span></div>
+          <span class="fund-meter" data-fund-bar="gateway"><i></i></span>
           <p>A gateway prices some open models at zero and changes the list as its costs move.</p>
           <p class="fund-cost"><b>What it costs you:</b> the model you chose disappearing mid-project.</p>
           <p class="fund-who" data-fund-who="gateway">opencode · Kilo Code · OpenRouter</p>
         </li>
-        <li class="fund funding--share">
-          <h3><span>Revenue back to you</span><b data-fund="share">3 entries</b></h3>
+        <li class="fund fund--share">
+          <div class="fund-h"><h3>Revenue back to you</h3><span class="fund-n" data-fund="share">3 entries</span></div>
+          <span class="fund-meter" data-fund-bar="share"><i></i></span>
           <p>The ad money is split with the user rather than only absorbed: 50% at ADCode and idlepay, 70% at Idlen.</p>
           <p class="fund-cost"><b>What it costs you:</b> nothing, but earnings follow advertiser demand, not your hours.</p>
           <p class="fund-who" data-fund-who="share">ADCode · Idlen · idlepay</p>
         </li>
-        <li class="fund funding--local">
-          <h3><span>Your own hardware</span><b data-fund="local">1 entry</b></h3>
+        <li class="fund fund--local">
+          <div class="fund-h"><h3>Your own hardware</h3><span class="fund-n" data-fund="local">1 entry</span></div>
+          <span class="fund-meter" data-fund-bar="local"><i></i></span>
           <p>A local runtime and open weights. No account, no key, no telemetry to a vendor.</p>
           <p class="fund-cost"><b>What it costs you:</b> a GPU and electricity — and capability below the frontier.</p>
           <p class="fund-who" data-fund-who="local">Ollama</p>
@@ -1499,42 +1560,45 @@
   </section>
 
   <section class="section" id="checks">
-    <div class="col">
+    <div class="col section-in">
       <header class="sechead">
+        <p class="kicker">03 — Before you paste</p>
         <h2>Six questions the product page will not answer</h2>
+        <p class="seclede">Open the one that matches what you are about to do. The answers are the reason this page exists.</p>
       </header>
-      <ol class="checks">
-        <li>
-          <h3>Who reads my prompts?</h3>
-          <p>The answers differ enormously. free-pi saves sessions as traces and may sell them; Freebuff says messages and traces may train ad models; VibeFree's classifier reads the first 1,500 characters and keeps only topic labels; idlepay reads one timestamp. Read this before pasting work code.</p>
-        </li>
-        <li>
-          <h3>What unit is the allowance in?</h3>
-          <p>Hours (Freebuff, 30/day only in its 24 full-access countries, 5 elsewhere), agent time (Tenzy, 20h 35m per cycle), credits per turn (Clixad, 60,000/day), multiples of a base rate (free-pi), responses per 5 hours (Autohand, 15). Two tools quoting “a daily allowance” can differ by fifty times.</p>
-        </li>
-        <li>
-          <h3>Is the free model the good model?</h3>
-          <p>Usually not. Freebuff's free tier is DeepSeek V4.1 Flash “Slow”; ADCode's free AI is partner models; DeepAI's free chat excludes Genius. Antigravity is the exception that puts Claude and Gemini on a $0 plan.</p>
-        </li>
-        <li>
-          <h3>What happens at the limit?</h3>
-          <p>Three shapes: it tells you when access resets (freecode), the day's allowance is simply gone (Freebuff, Tenzy), or it invites you onto an offerwall or a card (Clixad, ADCode).</p>
-        </li>
-        <li>
-          <h3>Can it be taken away?</h3>
-          <p>Gemini CLI's free tier ran at 1,000 requests a day, was cut to Flash-only in March 2026, and was switched off on 18 June 2026. Prefer tools that are Apache-2.0 or MIT — Freebuff, ADCode, OB-1, free-pi, Clixad — so a promise is not the only thing holding your workflow up.</p>
-        </li>
-        <li>
-          <h3>Does it need a card, an account, or both?</h3>
-          <p>None of the 13 free-forever entries needs a card. Accounts still gate some of them: GitHub for freecode, Google for Antigravity, AWS for Kiro, and a 30-day-old GitHub account for Autohand's free plan.</p>
-        </li>
-      </ol>
+      <div class="checks">
+        <details>
+          <summary><span class="q-n">01</span>Who reads my prompts?</summary>
+          <p class="q-a">The answers differ enormously. free-pi saves sessions as traces and may sell them; Freebuff says messages and traces may train ad models; VibeFree's classifier reads the first 1,500 characters and keeps only topic labels; idlepay reads one timestamp. Read this before pasting work code.</p>
+        </details>
+        <details>
+          <summary><span class="q-n">02</span>What unit is the allowance in?</summary>
+          <p class="q-a">Hours (Freebuff, 30/day only in its 24 full-access countries, 5 elsewhere), agent time (Tenzy, 20h 35m per cycle), credits per turn (Clixad, 60,000/day), multiples of a base rate (free-pi), responses per 5 hours (Autohand, 15). Two tools quoting “a daily allowance” can differ by fifty times.</p>
+        </details>
+        <details>
+          <summary><span class="q-n">03</span>Is the free model the good model?</summary>
+          <p class="q-a">Usually not. Freebuff's free tier is DeepSeek V4.1 Flash “Slow”; ADCode's free AI is partner models; DeepAI's free chat excludes Genius. Antigravity is the exception that puts Claude and Gemini on a $0 plan.</p>
+        </details>
+        <details>
+          <summary><span class="q-n">04</span>What happens at the limit?</summary>
+          <p class="q-a">Three shapes: it tells you when access resets (freecode), the day's allowance is simply gone (Freebuff, Tenzy), or it invites you onto an offerwall or a card (Clixad, ADCode).</p>
+        </details>
+        <details>
+          <summary><span class="q-n">05</span>Can it be taken away?</summary>
+          <p class="q-a">Gemini CLI's free tier ran at 1,000 requests a day, was cut to Flash-only in March 2026, and was switched off on 18 June 2026. Prefer tools that are Apache-2.0 or MIT — Freebuff, ADCode, OB-1, free-pi, Clixad — so a promise is not the only thing holding your workflow up.</p>
+        </details>
+        <details>
+          <summary><span class="q-n">06</span>Does it need a card, an account, or both?</summary>
+          <p class="q-a">None of the 13 free-forever entries needs a card. Accounts still gate some of them: GitHub for freecode, Google for Antigravity, AWS for Kiro, and a 30-day-old GitHub account for Autohand's free plan.</p>
+        </details>
+      </div>
     </div>
   </section>
 
   <section class="section" id="method">
-    <div class="col">
+    <div class="col section-in">
       <header class="sechead">
+        <p class="kicker">04 — The method</p>
         <h2>How this was checked, and what was not</h2>
       </header>
       <div class="method">
@@ -1557,13 +1621,10 @@
           </ul>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="section">
-    <div class="col">
       <div class="closing">
-        <h2 class="serif">The one rule that survives all of this</h2>
+        <p class="kicker">05 — The one rule</p>
+        <h2>The one rule that survives all of this</h2>
         <p>
           Every tool here processes your prompt somewhere you do not control. Keep credentials
           out of prompts, and treat company code as a decision your employer makes, not one a
@@ -1576,10 +1637,10 @@
 </main>
 
 <footer class="foot">
-  <div class="col">
-    <p class="foot-brand">free&thinsp;forever</p>
+  <div class="col foot-in">
+    <p class="foot-brand"><span class="brand-mark" aria-hidden="true">$0</span>free&thinsp;forever</p>
     <p class="foot-note">Compiled 6 November 2026 · re-checked 26 November 2026 · <span data-count="all">42</span> entries · sources linked per entry · no affiliate links</p>
-    <p class="foot-links"><a href="#list">The list</a><a href="#tiers">Tiers</a><a href="#method">Method</a></p>
+    <p class="foot-links"><a href="#list">The list</a><a href="#tiers">Tiers</a><a href="#funding">Funding</a><a href="#method">Method</a><a href="feed.json">feed.json</a><a href="llms.txt">llms.txt</a></p>
   </div>
 </footer>
 

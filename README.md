@@ -191,7 +191,7 @@ image, and each platform has its own rules. What is set up here:
 
 | Platform | What it reads | What we did |
 |:--|:--|:--|
-| **WhatsApp** | `og:title`, `og:description`, `og:url`, `og:image` | Image is 1200×630, 40KB, 1.9:1 — inside WhatsApp's limits (≥300px wide, ≤4:1, under 600KB) |
+| **WhatsApp** | `og:title`, `og:description`, `og:url`, `og:image` | Image is 1200×630, 69KB, 1.9:1 — inside WhatsApp's limits (≥300px wide, ≤4:1, under 600KB) |
 | **X / Twitter** | `twitter:card`, then falls back to `og:*` | `summary_large_image` is declared, because that one tag has **no** fallback |
 | **Facebook, LinkedIn, Slack, Discord, iMessage** | Open Graph | The same four tags serve all of them |
 
@@ -226,6 +226,34 @@ looks stale after a change, share the link with `?v=2` appended to bust it.
 that lists all 42 entries. After the first deploy, submit the sitemap once in
 [Google Search Console](https://search.google.com/search-console) — nothing will index
 you quickly without that.
+
+---
+
+## The interface
+
+A dark console rather than a document: one dense list, the catch printed under every
+row, and the controls pinned where you need them.
+
+- **Top bar.** Wordmark, the five section links, a button that jumps to search, and the
+  newest date in `data/tools.js` — not a date typed into the HTML.
+- **The split.** Three readouts at the top of the page, each with a bar showing that
+  tier's share of the 42. Press one and the list filters to it.
+- **The rail** (left, sticky). Search, a tier switch, sort order, and two multi-select
+  tag rows — how a tool runs, and who pays for it. Below 1000px it folds into a single
+  "Filters and sort" row so the list starts inside the first screen.
+- **The rows.** One line per entry — name, tier, the allowance in the vendor's own
+  words, who pays, licence, the date it was last read — and the catch directly beneath
+  it. `+ N` opens the remaining catches and the reason the entry is included. One
+  button in the results line opens them all at once.
+- **The panels.** Below 1000px the same entry is a card with nothing hidden: allowance,
+  facts, every catch, why it is here, sources.
+- **Keyboard.** `/` jumps to search, `Escape` clears it. Every filter, sort and
+  disclosure is a real button, so tab order matches the visual order.
+
+The design tokens — ground, ink, the three tier colours, type scale — are the custom
+properties at the top of `assets/style.css`. The markup for a row and a panel is
+`entry()` and `card()` in `assets/app.js`; both read the same fields, so a new field
+in `data/tools.js` needs adding in two places and nowhere else.
 
 ---
 

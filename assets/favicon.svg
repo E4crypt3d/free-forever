@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-<rect width="64" height="64" rx="12" fill="#15140f"/>
-<text x="32" y="41" font-family="ui-monospace,Menlo,monospace" font-size="23" font-weight="700"
- fill="#f7f5ee" text-anchor="middle">$0</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="free forever">
+  <rect width="64" height="64" rx="10" fill="#0a0c0b"/>
+  <rect x="1" y="1" width="62" height="62" rx="9" fill="none" stroke="#1d5c3a"/>
+  <text x="32" y="43" text-anchor="middle" font-family="ui-monospace, 'SF Mono', Menlo, monospace"
+        font-size="30" font-weight="600" letter-spacing="-1.5" fill="#46e08c">$0</text>
 </svg>
