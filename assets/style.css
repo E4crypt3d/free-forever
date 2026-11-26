@@ -342,6 +342,18 @@ ul, ol { margin: 0; }
   font-variant-numeric: tabular-nums;
 }
 
+/* Results line plus the one-click "expand all catches" control. */
+.listbar {
+  display: flex; align-items: baseline; justify-content: space-between;
+  gap: 16px; margin: 0 0 14px;
+}
+.listbar .count { margin: 0; }
+.btn--small {
+  min-height: 0; padding: 7px 12px;
+  font-size: 12px;
+  flex: none;
+}
+
 /* ─────────────────────────────────────────────
    Entries — one rendering per breakpoint.
    The phone list is declared first so the desktop
@@ -422,14 +434,12 @@ ul, ol { margin: 0; }
     letter-spacing: .07em; text-transform: uppercase;
     color: var(--ink-3);
   }
+  /* No line clamp: the allowance is the number people came for, and a clipped
+     price is worse than a long row. The catch column still collapses. */
   .drow-facts dd {
     margin: 0;
     font-size: 12.5px; line-height: 1.5;
     color: var(--ink-2);
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
   }
 
   /* The catch is a margin note on a rule, not a coloured box. */
@@ -483,6 +493,12 @@ ul, ol { margin: 0; }
   .drow[data-tier="forever"] .drow-tier { color: var(--green); background: var(--green-wash); }
   .drow[data-tier="limited"] .drow-tier { color: var(--amber); background: var(--amber-wash); }
   .drow[data-tier="reference"] .drow-tier { color: var(--grey); background: var(--grey-wash); }
+
+  /* When the list is already filtered to one tier, saying "free forever" on
+     every row repeats the filter. Drop the badge, keep the other three. */
+  .rows[data-filter="forever"] .drow-tier,
+  .rows[data-filter="limited"] .drow-tier,
+  .rows[data-filter="reference"] .drow-tier { display: none; }
 
   .drow-pick {
     font: 600 12px/1 var(--mono);
@@ -1077,4 +1093,26 @@ ul, ol { margin: 0; }
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
+}
+
+/* ─────────────────────────────────────────────
+   Repeats the filter, so it goes
+   ───────────────────────────────────────────── */
+
+/* Phone list filtered to one tier: the tier tag on every card says what the
+   chip above already said. */
+.stack[data-filter="forever"] .tcard .tag--forever,
+.stack[data-filter="limited"] .tcard .tag--limited,
+.stack[data-filter="reference"] .tcard .tag--reference { display: none; }
+
+/* ─────────────────────────────────────────────
+   Touch targets
+   ───────────────────────────────────────────── */
+
+/* The section links and the category/funding tag buttons measure 26–38px on a
+   phone. They filter the list, so they need a thumb-sized target. */
+@media (pointer: coarse) {
+  .nav a { display: inline-flex; align-items: center; min-height: 44px; }
+  .tag--link { display: inline-flex; align-items: center; min-height: 44px; }
+  .drow-more { display: inline-flex; align-items: center; min-height: 44px; }
 }
