@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<title>free forever — share card source</title>
+<!-- Source for assets/og-card.png. Screenshot it at exactly 1200x630:
+       scripts/make-cards.mjs
+     The counts between the markers are rewritten by scripts/build-static.mjs,
+     so the card cannot drift from data/tools.js. -->
+<link rel="stylesheet" href="fonts.css">
+<style>
+  :root {
+    --paper: #f2f3ee; --ink: #0f110c; --ink-2: #3a3e35; --ink-3: #5f6457;
+    --rule: #b4bba6; --green: #0d6b3d; --amber: #8a4a0a; --grey: #565a50;
+    --display: "Bricolage Grotesque", Georgia, serif;
+    --sans: "IBM Plex Sans", system-ui, sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, monospace;
+  }
+  html, body { margin: 0; }
+  body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: var(--paper); color: var(--ink);
+    font: 400 22px/1.45 var(--sans);
+    padding: 64px 72px 56px; box-sizing: border-box;
+    display: flex; flex-direction: column;
+  }
+  .eyebrow {
+    font: 600 17px/1 var(--mono); letter-spacing: .16em; text-transform: uppercase;
+    color: var(--green);
+  }
+  h1 {
+    font: 700 96px/.96 var(--display); letter-spacing: -.035em;
+    margin: 26px 0 0; max-width: 900px;
+  }
+  h1 em { font-style: normal; color: var(--green); }
+  p.sub { font: 400 27px/1.38 var(--sans); color: var(--ink-2); margin: 26px 0 0; max-width: 830px; }
+  .rule { flex: 1 1 auto; border-bottom: 1px solid var(--rule); margin-bottom: 26px; }
+  .stats { display: flex; gap: 0; }
+  .stat { padding: 0 40px; border-left: 1px solid var(--rule); }
+  .stat:first-child { padding-left: 0; border-left: 0; }
+  .stat b { display: block; font: 700 62px/1 var(--display); letter-spacing: -.03em; }
+  .stat span { display: block; margin-top: 12px; font: 600 15px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--ink-3); }
+  .stat--forever b { color: var(--green); }
+  .stat--limited b { color: var(--amber); }
+  .stat--reference b { color: var(--grey); }
+  .foot { display: flex; align-items: flex-end; }
+  .mark { margin-left: auto; align-self: end; font: 600 15px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+</style>
+</head>
+<body>
+  <span class="eyebrow" id="card-eyebrow">free forever · 42 tools</span>
+  <h1>Free, or just<br><em>free for now?</em></h1>
+  <p class="sub">Which AI coding tools are actually free, and which are only a trial — with the catch included.</p>
+  <div class="rule"></div>
+  <div class="foot">
+    <!--count:stats-->
+      <div class="stats">
+        <div class="stat stat--forever"><b>13</b><span>Free forever</span></div>
+        <div class="stat stat--limited"><b>24</b><span>Limited free</span></div>
+        <div class="stat stat--reference"><b>5</b><span>Reference</span></div>
+      </div>
+    <!--/count:stats-->
+    <span class="mark">e4crypt3d.github.io/free-forever</span>
+  </div>
+</body>
+</html>

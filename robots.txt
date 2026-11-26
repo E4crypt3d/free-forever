@@ -1,10 +1,69 @@
 # free forever — a directory of AI coding tools and what they actually cost.
+# The point of the page is to be read and quoted, so everything under / is open.
+# Machine-readable copies: /feed.json (all entries) and /llms.txt (map for LLMs).
+
 User-agent: *
 Allow: /
 
-Sitemap: https://e4crypt3d.github.io/free-forever/sitemap.xml
+# Agents and AI crawlers, named so the welcome is unambiguous.
+User-agent: GPTBot
+Allow: /
 
-# Let social and messaging crawlers fetch the share image. The WhatsApp
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: meta-externalagent
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+# Let social and messaging crawlers fetch the share images. The WhatsApp
 # preview is often fetched by the sender's own phone, so neither list is
 # a guarantee, only permission.
 User-agent: WhatsApp
@@ -24,3 +83,5 @@ Allow: /
 
 User-agent: Discordbot
 Allow: /
+
+Sitemap: https://e4crypt3d.github.io/free-forever/sitemap.xml
