@@ -33,7 +33,7 @@ window.SOURCES = {
   "idlen": "https://www.idlen.io/",
   "idlepay": "https://www.idlepay.co/",
   "ob1": "https://overbrilliant.com/",
-  "ob1-compare": "https://overbrilliant.com/compare/",
+  "ob1-github": "https://github.com/Overbrilliant/ob-1",
   "opencode": "https://opencode.ai/",
   "opencode-zen": "https://opencode.ai/docs/zen/",
   "antigravity": "https://antigravity.google/",
@@ -93,7 +93,7 @@ window.TOOLS = [
     ],
     licence: "Not stated on the site; the CLI ships on npm as freecode-sh.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["freecode", "freecode-faq", "freecode-getstarted"],
     why: "One of only two here that runs in a browser as well as a terminal, with a start-up guide and an FAQ that names the trade-off instead of hiding it.",
     pick: true
@@ -107,17 +107,18 @@ window.TOOLS = [
     how: "ads",
     category: "agent",
     surfaces: ["Terminal", "Desktop (macOS, Windows, Linux incl. ARM)", "Web", "Android"],
-    free: "30 hours a day on the free plan, in one-hour sessions with unlimited messages. Hours reset at midnight in your local timezone and do not roll over.",
-    howPaid: "Text ads between agent turns. Paid tiers ($8 / $25 / $60) buy 50–130 hours a day and unlock the better models.",
+    free: "30 hours a day on the free plan — but only in the vendor's 24 “full access” countries. Anywhere else it is 5 hours a day, and 4 over a VPN or proxy. One-hour sessions with unlimited messages; hours reset at midnight in your local timezone and do not roll over.",
+    howPaid: "Text ads between agent turns. Paid tiers ($8 / $25 / $60) buy 50, 80 or 130 hours a day and unlock the better models.",
     catch: [
-      "Free gets DeepSeek V4.1 Flash only, and slowly: “Slow” is 15 hrs a day, the 10/17 variant 10 hrs. GPT-6 Luna, Claude Haiku 5.5 and Terra are paid-tier models.",
+      "The 30 hours is regional. Full access covers the US, Canada, UK, Australia, NZ, Ireland, Iceland, Norway, Sweden, Denmark, Finland, the Netherlands, Belgium, Luxembourg, Austria, Germany, France, Spain, Italy, Portugal, Switzerland, Malta and South Korea; everywhere else the free allowance is 5 hours a day, or 4 on a VPN.",
+      "Free runs the two DeepSeek V4.1 Flash variants (15 hrs/day, or 10 on Flash Fast) plus Solar Pro 4 and Solar Mini 4, and Beam 1.0, Nemotron 3.5 Lightning and Glyph Cluster, which use none of your hours. GPT-6 Luna, Muse Spark 1.3, Muse Ember, Claude Haiku 5.5 and GPT-6.1 Terra are paid-tier models.",
       "The launch post states messages, agent traces, files and usage may be analysed to personalise ads and train ad models.",
       "Hours, not tokens: an hour on a 3x model costs three of your hours.",
       "Full model list differs by country."
     ],
     licence: "Apache-2.0 (the free build of Codebuff).",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["freebuff", "freebuff-pricing", "freebuff-launch"],
     why: "The widest platform coverage of anything ad-funded — Linux ARM builds and a phone app — and the only one publishing a plain hours table per model.",
     pick: true
@@ -126,7 +127,7 @@ window.TOOLS = [
     id: "freepi",
     name: "free-pi",
     tier: "forever",
-    tagline: "Ad-funded terminal agent with 26 models, including opt-in “Defense” models that will not refuse.",
+    tagline: "Ad-funded terminal agent with 27 models, including opt-in “Defense” models that will not refuse.",
     url: "https://freepi.ai/",
     how: "ads",
     category: "agent",
@@ -137,11 +138,11 @@ window.TOOLS = [
       "The consent screen says it plainly: sessions are saved as traces and used to train models, and “they may be shared or sold to third parties” — with no opt-out after accepting.",
       "Alpha, no uptime guarantee, no self-service data deletion.",
       "One active session at a time per account.",
-      "Every strong model costs a multiple of the allowance: Claude Haiku ~2x, Kimi K3.1 Pro ~41x."
+      "Every strong model costs a multiple of the allowance: Kimi K3.1 Pro ~22x, Gemini 4 Neon ~29x, GPT-6.2 Astra ~51x. The Claude and GPT-6.1 models are listed as “temporarily unavailable” right now."
     ],
     licence: "CLI is MIT.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["freepi", "freepi-privacy", "freepi-limits"],
     why: "Listing this with its own consent text quoted, because that text is the clearest statement of the trade anywhere on this page. Also the only one with a bundled security-audit skill.",
     pick: false
@@ -189,7 +190,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary extension (vibefree.vibefree-vscode). Trading name of TapTapPay Ltd.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["vibefree", "vibefree-free", "vibefree-ads", "vibefree-dev"],
     why: "The only entry here you can use without creating anything, and it documents its ad classifier down to the character count.",
     pick: false
@@ -204,16 +205,16 @@ window.TOOLS = [
     category: "ide",
     surfaces: ["Browser", "Desktop (Windows, Linux)"],
     free: "140 AI credits a day across included models — roughly 20 agent steps a day, per their own comparison.",
-    howPaid: "Sponsored cards. Half of eligible ad revenue is credited to your account; the other half funds the editor. Plans from $9/month raise the allowance.",
+    howPaid: "Sponsored cards. Half of eligible ad revenue is credited to your account; the other half funds the editor. Plans from $19/month raise the allowance.",
     catch: [
-      "20 agent steps a day is a taste, not a working day. Builder ($9) is 44, Pro ($29) is 143.",
-      "The free AI is partner models — Tagflow AI and Heabsy — not frontier models.",
+      "20 agent steps a day is a taste, not a working day. Builder ($19) is 85, Pro ($39) is 175, Max ($149) is 661.",
+      "Free included AI is one sponsor's models — Tagflow Code 27B and Tagflow Code Flash, sponsored by Tagflow. Heabsy and every other hosted model are pay-as-you-go from credits.",
       "Earnings depend on eligible views and advertiser demand; they are not a wage.",
       "No macOS desktop build yet; the browser version needs a verified account for included AI."
     ],
     licence: "Open source under Apache-2.0.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["adcode", "adcode-pricing", "adcode-online"],
     why: "The only product here that shares revenue with the user instead of just waiving the bill — and it publishes the step count rather than saying “generous”.",
     pick: false
@@ -227,17 +228,18 @@ window.TOOLS = [
     how: "ads+offers",
     category: "agent",
     surfaces: ["Terminal", "Browser chat"],
-    free: "Five models free every day up to 60,000 credits per account, inside a daily budget shared by all users. 25,000 credits on signup.",
+    free: "Seven models free every day up to 60,000 credits of usage per account, inside a daily budget shared by all users; Gemini 3.8 Flash joins them until 15 January 2027. The 25,000-credit signup bonus is gone.",
     howPaid: "Marked terminal ads in up to three places (60-character lines, booked by advertisers by the week) plus surveys and offers completed in a browser tab that convert to credits.",
     catch: [
       "Past the daily limit you pay in credits. Most survey attempts end in a screenout that pays nothing — Clixad's own blog says so.",
-      "Free models are the budget end: GPT-5 Nano through Gemini 3.5 Flash-Lite. Premium models need earned or bought credits.",
+      "The free seven are not all budget models — GPT-5 Nano, GPT-6 Luna, Claude Haiku 5.5, GLM 5.3 Flash, DeepSeek V4.1 Flash, Gemini 3.5 Flash-Lite and Kimi K2.5 — but everything above them needs earned or bought credits.",
+      "Clixad's own funding post says free credits changed after it was written: the signup bonus its worked examples depend on is no longer issued.",
       "Public beta, 18+, shared daily budget so peak hours bite.",
       "The ad network still sees your IP; ad text is chosen by fixed category, never from prompts."
     ],
     licence: "CLI on npm under Apache-2.0.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["clixad", "clixad-funded"],
     why: "Publishes the arithmetic of its own funding, including the parts that are unflattering. `CLIXAD_SPONSOR=0` turns the ads off.",
     pick: false
@@ -261,7 +263,7 @@ window.TOOLS = [
     ],
     licence: "Extension code published for security review.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["idlen"],
     why: "A different question from the rest of this page: not “make AI free” but “let the wait pay for some of it”. Worth knowing it exists.",
     pick: false
@@ -285,7 +287,7 @@ window.TOOLS = [
     ],
     licence: "Open-source client, signed marketplace builds, verify.sh against public source.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["idlepay"],
     why: "The most aggressively minimal version of the idea — one line, only during a real wait, verifiable builds.",
     pick: false
@@ -295,23 +297,23 @@ window.TOOLS = [
     name: "Overbrilliant OB-1",
     tier: "forever",
     tagline: "Open Apache-2.0 terminal agent with no account, no card and no key.",
-    url: "https://overbrilliant.com/",
+    url: "https://github.com/Overbrilliant/ob-1",
     how: "vendor",
     category: "agent",
     surfaces: ["Terminal (macOS, Linux)"],
-    free: "A built-in free-models router starts with no key or account; new free models reach free users after 30 days.",
+    free: "A built-in free-models router — the project documents 150+ free models across 20+ providers — starts with no key or account; new free models reach free users after 30 days.",
     howPaid: "Vendor-funded free router; paid hosted tier is hard-capped prepaid credits with no overage path.",
     catch: [
-      "This is the vendor's own product page and they list themselves first in their comparison table — they say so explicitly.",
+      "overbrilliant.com no longer documents the agent at all: the site now sells custom-trained models from $1,500. The free CLI lives on GitHub and npm (@overbrilliant/ob1), with an Apache-2.0 licence and its own README.",
       "New free models lag 30 days behind paying users.",
-      "No Windows build listed.",
-      "Their own comparison flags Pi as having no sandbox, and OB-1's sandboxing is Seatbelt/bubblewrap on macOS and Linux only."
+      "The free router's capacity is whatever the keyless providers choose to give it, so throughput moves around.",
+      "Sandboxing is macOS Seatbelt and Linux bubblewrap only."
     ],
     licence: "Apache-2.0 CLI.",
     evidence: "vendor",
-    verified: "2026-11-06",
-    sources: ["ob1", "ob1-compare"],
-    why: "The only entry that needs no account and no key at all, and the comparison page names each competitor's real billing situation instead of inventing one.",
+    verified: "2026-11-26",
+    sources: ["ob1", "ob1-github"],
+    why: "The only entry that needs no account and no key at all, and its README says what the free router actually draws on instead of promising a model tier.",
     pick: false
   },
   {
@@ -333,7 +335,7 @@ window.TOOLS = [
     ],
     licence: "Open source.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["opencode", "opencode-zen"],
     why: "The most-installed open agent, with free models wired in rather than bolted on.",
     pick: false
@@ -347,16 +349,17 @@ window.TOOLS = [
     how: "vendor",
     category: "ide",
     surfaces: ["IDE", "CLI"],
-    free: "$0 plan serving gemini-3.8-flash, claude-opus-4.6, claude-sonnet-4.6 and gpt-oss-120b.",
+    free: "$0 plan serving gemini-3.8-flash, claude-opus-4.6, claude-sonnet-4.6 and gpt-oss-120b — all four listed “until 2026-11-30”.",
     howPaid: "Google-funded. No ads at all. Gemini CLI's individual free tier ended 18 June 2026 and Google routes free users here.",
     catch: [
-      "Google account required, and Google can change the quota with one announcement.",
+      "Google account required, and Google can change the quota with one announcement — the directory that probes these rows already dates all four models “until 2026-11-30”.",
+      "Gemini models and third-party models have separate weekly allowances, and neither amount is published.",
       "Gemini CLI's free tier being switched off is the cautionary tale: vendor free tiers are revocable.",
       "Proprietary and closed source."
     ],
     licence: "Proprietary.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["antigravity", "awesome"],
     why: "The strongest free models on this page without watching an ad. Listed as directory-verified because the plan details come from a probed directory, not a page I read.",
     pick: true
@@ -379,8 +382,8 @@ window.TOOLS = [
     ],
     licence: "MIT (Ollama); model licences vary.",
     evidence: "vendor",
-    verified: "2026-11-06",
-    sources: ["ollama", "ob1-compare"],
+    verified: "2026-11-26",
+    sources: ["ollama", "ob1-github"],
     why: "Included because every other entry has an asterisk and this one does not. It is the baseline the rest are being measured against.",
     pick: false
   },
@@ -407,7 +410,7 @@ window.TOOLS = [
     ],
     licence: "Open source.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["kilo", "awesome"],
     why: "Here rather than in the free-forever tier because the free path is a rotating pool, not a standing arrangement.",
     pick: false
@@ -421,7 +424,7 @@ window.TOOLS = [
     how: "vendor",
     category: "ide",
     surfaces: ["IDE", "CLI"],
-    free: "A perpetual free tier on Claude Sonnet and open-weight models; successor to Amazon Q Developer.",
+    free: "A perpetual free tier on Claude Sonnet and open-weight models — 50 credits a month, non-rolling, on requests served from the US; successor to Amazon Q Developer.",
     howPaid: "AWS-funded, no ads.",
     catch: [
       "The workflow is opinionated: write requirements before code.",
@@ -430,7 +433,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["kiro", "awesome"],
     why: "Perpetual rather than promotional, which is why it is not in the “free forever” tier only because the quota is small.",
     pick: false
@@ -444,7 +447,7 @@ window.TOOLS = [
     how: "vendor",
     category: "agent",
     surfaces: ["Web"],
-    free: "A free tier of daily async tasks on Gemini models.",
+    free: "15 async tasks per rolling day, 3 at a time, on Gemini models.",
     howPaid: "Google-funded.",
     catch: [
       "Asynchronous only — no real-time steering.",
@@ -453,7 +456,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["jules", "awesome"],
     why: "Good for offloading chores, but the daily cap puts it in this tier.",
     pick: false
@@ -476,7 +479,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["duck"],
     why: "No account and no ads, but an undisclosed cap — the honest description is “limited”.",
     pick: false
@@ -499,7 +502,7 @@ window.TOOLS = [
     ],
     licence: "Open-source CLI.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["autohand"],
     why: "Publishes the full rate-limit matrix on a docs page — rare — but 100 responses a month is a trial in all but name.",
     pick: false
@@ -522,7 +525,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["workbuddy"],
     why: "Listed because its docs separate base credits from promo credits — most products blur the two.",
     pick: false
@@ -536,16 +539,16 @@ window.TOOLS = [
     how: "vendor",
     category: "ide",
     surfaces: ["Web chat", "DeepAI Code desktop app", "Website builder"],
-    free: "Limited HD images and editing, limited standard chat, up to 200 “Theos” a day in DeepAI Code, 60s/day of voice chat.",
+    free: "Limited HD images and editing, limited standard chat, up to 250 “Theos” a day in DeepAI Code, 60s/day of voice chat.",
     howPaid: "Vendor-funded free tier with an ad-supported free experience; Pro at $9.99/month (or $7.50 annual) removes ads and raises everything.",
     catch: [
-      "Free chat is limited to Standard models. Genius and Super Genius — GPT-6.1 Sol, Claude Opus 5.5, Gemini 4 — are Pro only.",
+      "Free chat is limited to Standard models. Genius and Super Genius — GPT-6.2 Sol, Grok 4.3, Claude Fable 5.2, Claude Opus 5.5, GPT-6.2 Astra, Gemini 4 Argon — are Pro only.",
       "The API is not free at all: the docs state API access requires a DeepAI Pro subscription.",
       "Theos are a daily allowance, not a durable pool."
     ],
     licence: "Proprietary.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["deepai", "deepai-docs"],
     why: "Worth including to kill a common assumption: DeepAI's free tier does not extend to its API, which its own docs say is Pro-only.",
     pick: false
@@ -568,7 +571,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["cursor", "awesome"],
     why: "Included as a calibration point: this is what the industry calls “a free plan” when the aim is conversion.",
     pick: false
@@ -591,7 +594,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["trae", "awesome"],
     why: "A large free headline that is really a one-shot trial — exactly the shape this tier is here to flag.",
     pick: false
@@ -614,7 +617,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["qoder", "awesome"],
     why: "The free tier is really four overlapping promotions — a good example of why this tier exists separately.",
     pick: false
@@ -628,7 +631,7 @@ window.TOOLS = [
     how: "vendor",
     category: "ide",
     surfaces: ["VS Code", "JetBrains", "Visual Studio", "CLI"],
-    free: "A free individual plan: limited completions and a small monthly chat/agent allowance.",
+    free: "A free individual plan: 2,000 completions a month plus a chat and agent allowance GitHub does not put a number on.",
     howPaid: "Vendor-funded free tier; paid plans from $10.",
     catch: [
       "Monthly completions and chat requests run out quickly once an agent is involved.",
@@ -637,7 +640,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["copilot", "awesome"],
     why: "Usually already available to you, which makes it the free tier most people should try before installing anything else.",
     pick: false
@@ -660,7 +663,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["codex", "awesome"],
     why: "Genuinely usable for small tasks, but “unpublished allowance” is the whole problem with vendor free tiers.",
     pick: false
@@ -683,7 +686,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["macaly"],
     why: "The most usable “free forever” app builder of the ones I read, because 1M monthly credits is a real number rather than a countdown.",
     pick: false
@@ -706,7 +709,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary (bolt.diy is the MIT open-source fork).",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["bolt", "vibeledger"],
     why: "Included for the browser-builder category; bolt.diy is the free-forever route if you want it open source.",
     pick: false
@@ -729,7 +732,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary API, OpenAI-compatible endpoints available.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["gemini-studio", "awesome"],
     why: "The default free key behind half the open agents on this page.",
     pick: false
@@ -752,7 +755,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary service, OpenAI-compatible.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["groq", "awesome"],
     why: "When latency is the problem — tight test loops, autocomplete — this is the fastest free inference available.",
     pick: false
@@ -775,7 +778,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary service, OpenAI-compatible.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["nvidia", "awesome"],
     why: "The widest free catalogue of respectable open weights.",
     pick: false
@@ -798,7 +801,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary service, OpenAI-compatible.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["openrouter", "openrouter-free"],
     why: "The single key that drops into nearly every agent here as BYOK, with no card.",
     pick: false
@@ -817,11 +820,12 @@ window.TOOLS = [
     catch: [
       "Research capacity: uptime is best-effort and it could stop without notice.",
       "The Anthropic-shaped endpoint slots into Claude Code but is not an officially supported pairing.",
+      "Prompts and responses may be logged for research, and sanitised content and usage statistics may be published. It is a lab experiment, not a privacy product.",
       "Key required."
     ],
     licence: "Research service.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["freeinference", "awesome"],
     why: "The only free endpoint that speaks Anthropic's protocol, so existing Claude Code habits carry over.",
     pick: false
@@ -844,7 +848,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary service.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["llm7", "awesome"],
     why: "One of the few that publishes a real recurring number instead of “generous limits”.",
     pick: false
@@ -867,7 +871,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary service.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["ovh", "awesome"],
     why: "The only zero-signup, zero-key API on this page.",
     pick: false
@@ -890,7 +894,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary service, OpenAI-compatible.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["zai", "awesome"],
     why: "A free Flash model with vision, which is rare and useful for screenshot-to-code.",
     pick: false
@@ -913,7 +917,7 @@ window.TOOLS = [
     ],
     licence: "Proprietary service.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["cloudflare", "awesome"],
     why: "Free inference that ships with the code it serves, with no separate provider account.",
     pick: false
@@ -927,7 +931,7 @@ window.TOOLS = [
     how: "vendor",
     category: "api",
     surfaces: ["API"],
-    free: "An open text endpoint on gpt-oss-20b, plus image generation, anonymous.",
+    free: "An anonymous legacy text endpoint on text.pollinations.ai (gpt-oss-20b). The current gen.pollinations.ai API needs a key and bills Pollen credits.",
     howPaid: "Community-funded free service.",
     catch: [
       "The text endpoint is labelled “legacy”.",
@@ -936,7 +940,7 @@ window.TOOLS = [
     ],
     licence: "Free service.",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["pollinations", "awesome"],
     why: "The fastest way to prove an idea without creating an account — images included.",
     pick: false
@@ -948,7 +952,7 @@ window.TOOLS = [
     id: "awesome",
     name: "awesome-free-ai-coding",
     tier: "reference",
-    tagline: "103 live free offers, probe-verified twice a week, with the evidence linked.",
+    tagline: "118 live free offers, probe-verified twice a week, with the evidence linked.",
     url: "https://mvalentsev.github.io/awesome-free-ai-coding/",
     how: "none",
     category: "directory",
@@ -962,7 +966,7 @@ window.TOOLS = [
     ],
     licence: "MIT.",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["awesome"],
     why: "The best place to check whether a free tier still exists this week, because every row links its proof.",
     pick: true
@@ -971,12 +975,12 @@ window.TOOLS = [
     id: "freellm",
     name: "freellm.site",
     tier: "reference",
-    tagline: "73 providers with free tiers, each row saying whether a card is required.",
+    tagline: "74 providers with free tiers, each row saying whether a card is required.",
     url: "https://www.freellm.site/",
     how: "none",
     category: "directory",
     surfaces: ["Web"],
-    free: "Free to read; 28 providers marked “always free”.",
+    free: "Free to read; 29 providers marked “always free”.",
     howPaid: "A plain directory, last updated 2026-09-29, with a verification column.",
     catch: [
       "Rows go stale between updates.",
@@ -985,7 +989,7 @@ window.TOOLS = [
     ],
     licence: "n/a",
     evidence: "vendor",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["freellm"],
     why: "Good breadth when you need a free key for a specific model and want the card requirement in the same row.",
     pick: false
@@ -1004,11 +1008,11 @@ window.TOOLS = [
     catch: [
       "Quotes vendors rather than testing them.",
       "Some entries were “verified” without the exact limits being captured.",
-      "Five days older than this page."
+      "Checked 31 October 2026 — 26 days before this re-check."
     ],
     licence: "n/a",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["vibeledger"],
     why: "Useful because it prints the vendor's own sentence instead of a summary of it.",
     pick: false
@@ -1031,7 +1035,7 @@ window.TOOLS = [
     ],
     licence: "n/a",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["ghstudent"],
     why: "The highest-value free bundle on this page, if you are eligible.",
     pick: false
@@ -1054,7 +1058,7 @@ window.TOOLS = [
     ],
     licence: "n/a",
     evidence: "directory",
-    verified: "2026-11-06",
+    verified: "2026-11-26",
     sources: ["azure"],
     why: "Enough to host a real side project — and an AI endpoint — for a year without a card.",
     pick: false

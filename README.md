@@ -48,8 +48,8 @@ Skip the browsing. Pick the row that sounds like your situation.
 |:--|:--|:--|
 | **Completely new, want to try in a browser tab** | [freecode](https://freecode.sh/) | Runs on the web. No install, no card, no API key. |
 | **On a phone right now** | [VibeFree](https://vibefree.dev/) | Chat works with no login at all. Also a VS Code extension later. |
-| **On Windows or Linux, want a real agent** | [Freebuff](https://freebuff.com/) | 30 free hours a day, installers for every OS including ARM. |
-| **On a Mac, want to do security work** | [free-pi](https://freepi.ai/) | 26 models including "Defense" models that will not refuse lawful work on your own systems. |
+| **On Windows or Linux, want a real agent** | [Freebuff](https://freebuff.com/) | 30 free hours a day in the vendor's 24 full-access countries (5 hours a day elsewhere, 4 over a VPN), installers for every OS including ARM. |
+| **On a Mac, want to do security work** | [free-pi](https://freepi.ai/) | 27 models including "Defense" models that will not refuse lawful work on your own systems. |
 | **Want the strongest models for zero money** | [Google Antigravity](https://antigravity.google/) | Runs Claude Opus/Sonnet and Gemini on a $0 plan. No ads at all. |
 | **Want a developer account that pays you back** | [ADCode](https://adcode.bluethenics.com/) | Half of the ad revenue its sponsor cards earn is credited to you. |
 | **Already pay for Claude or ChatGPT** | [idlepay](https://www.idlepay.co/) | Does not give you a model — pays you 50% for the time your AI spends thinking. |
@@ -148,8 +148,9 @@ Honest limits, up front:
   unmeasured by us. Per-turn allowances, speed and code quality are untested here.
 - **It is not a quality ranking.** Being listed means "this is genuinely free to start",
   not "this is good."
-- **Free tiers rot.** Everything was read on **6 November 2026**. Re-check the linked
-  sources before you rely on any allowance.
+- **Free tiers rot.** Everything was first read on **6 November 2026** and re-checked
+  against the vendors' own pages on **26 November 2026**; what changed is corrected here.
+  Re-check the linked sources before you rely on any allowance.
 - **"Top pick" means approachable, not best.** It flags an easy, well-documented way in —
   not the highest-quality output.
 
@@ -271,7 +272,7 @@ everything else.
 <p align="center">
 <sub>
 
-Compiled 6 November 2026 · 42 entries · 13 free forever · 24 limited · 5 reference<br>
+Compiled 6 November 2026 · re-checked 26 November 2026 · 42 entries · 13 free forever · 24 limited · 5 reference<br>
 Sources are linked on every entry · no affiliate links · no sponsorships<br>
 Check the date before you trust a number. Free tiers rot fast.
 
