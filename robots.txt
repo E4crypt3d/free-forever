@@ -1,4 +1,4 @@
-# free forever — a directory of AI coding tools and what they actually cost.
+# free forever, a directory of AI coding tools and what they actually cost.
 # The point of the page is to be read and quoted, so everything under / is open.
 # Machine-readable copies: /feed.json (all entries) and /llms.txt (map for LLMs).
 

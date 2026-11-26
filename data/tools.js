@@ -1,12 +1,12 @@
-/* Free Forever — data file.
+/* Free Forever, data file.
    Read on 2026-11-06. Every claim below was taken from the vendor's own page
    (evidence: "vendor") or from a directory that probes its rows on a schedule
    (evidence: "directory"). Nothing here comes from a blog listicle.
 
    tier:
-     "forever"   — no card, no expiry, funded by ads / a vendor / your own hardware
-     "limited"   — a real free tier, but capped, promotional, or credits that run out
-     "reference" — directories and student bundles, not tools themselves
+     "forever":  no card, no expiry, funded by ads / a vendor / your own hardware
+     "limited":  a real free tier, but capped, promotional, or credits that run out
+     "reference": directories and student bundles, not tools themselves
 */
 
 window.SOURCES = {
@@ -87,7 +87,7 @@ window.TOOLS = [
     free: "Free access with a daily usage limit; the site says access resets and tells you when.",
     howPaid: "Sponsor cards are shown in the interface, clearly labelled, and the FAQ says they are “not written into your code”.",
     catch: [
-      "The npm installer covers Apple-silicon macOS and Windows x64 only — Intel Macs, Linux and Windows on ARM are out.",
+      "The npm installer covers Apple-silicon macOS and Windows x64 only, so Intel Macs, Linux and Windows on ARM are out.",
       "Web use asks for GitHub read and write access to your repositories.",
       "The FAQ states session data feeds diagnostics, sponsored recommendations and “eligible data licensing”."
     ],
@@ -107,7 +107,7 @@ window.TOOLS = [
     how: "ads",
     category: "agent",
     surfaces: ["Terminal", "Desktop (macOS, Windows, Linux incl. ARM)", "Web", "Android"],
-    free: "30 hours a day on the free plan — but only in the vendor's 24 “full access” countries. Anywhere else it is 5 hours a day, and 4 over a VPN or proxy. One-hour sessions with unlimited messages; hours reset at midnight in your local timezone and do not roll over.",
+    free: "30 hours a day on the free plan, but only in the vendor's 24 “full access” countries. Anywhere else it is 5 hours a day, and 4 over a VPN or proxy. One-hour sessions with unlimited messages; hours reset at midnight in your local timezone and do not roll over.",
     howPaid: "Text ads between agent turns. Paid tiers ($8 / $25 / $60) buy 50, 80 or 130 hours a day and unlock the better models.",
     catch: [
       "The 30 hours is regional. Full access covers the US, Canada, UK, Australia, NZ, Ireland, Iceland, Norway, Sweden, Denmark, Finland, the Netherlands, Belgium, Luxembourg, Austria, Germany, France, Spain, Italy, Portugal, Switzerland, Malta and South Korea; everywhere else the free allowance is 5 hours a day, or 4 on a VPN.",
@@ -120,7 +120,7 @@ window.TOOLS = [
     evidence: "vendor",
     verified: "2026-11-26",
     sources: ["freebuff", "freebuff-pricing", "freebuff-launch"],
-    why: "The widest platform coverage of anything ad-funded — Linux ARM builds and a phone app — and the only one publishing a plain hours table per model.",
+    why: "The widest platform coverage of anything ad-funded (Linux ARM builds and a phone app), and the only one publishing a plain hours table per model.",
     pick: true
   },
   {
@@ -132,10 +132,10 @@ window.TOOLS = [
     how: "ads",
     category: "agent",
     surfaces: ["Terminal"],
-    free: "A daily allowance set by the server — the limits docs deliberately do not state a number. /usage shows a percentage; a warning appears at 80%.",
+    free: "A daily allowance set by the server. The limits docs deliberately do not state a number. /usage shows a percentage; a warning appears at 80%.",
     howPaid: "Terminal ad cards; /support opens today's advertiser. An ad partner receives excerpts of your recent conversation to pick the ad.",
     catch: [
-      "The consent screen says it plainly: sessions are saved as traces and used to train models, and “they may be shared or sold to third parties” — with no opt-out after accepting.",
+      "The consent screen says it plainly: sessions are saved as traces and used to train models, and “they may be shared or sold to third parties”, with no opt-out after accepting.",
       "Alpha, no uptime guarantee, no self-service data deletion.",
       "One active session at a time per account.",
       "Every strong model costs a multiple of the allowance: Kimi K3.1 Pro ~22x, Gemini 4 Neon ~29x, GPT-6.2 Astra ~51x. The Claude and GPT-6.1 models are listed as “temporarily unavailable” right now."
@@ -160,7 +160,7 @@ window.TOOLS = [
     howPaid: "Sponsor banners rotate about every 15 seconds; between-turn placements appear after completed work with frequency caps.",
     catch: [
       "Ads are frequent by design: a rotating banner every ~15 seconds while one is visible.",
-      "Agent-time accounting, not tokens — cheaper models stretch it, but the clock runs while the agent works.",
+      "Agent-time accounting, not tokens: cheaper models stretch it, but the clock runs while the agent works.",
       "Default model is DeepSeek V4 Flash; NVIDIA Inkling needs your own key.",
       "The installer shown on the site is PowerShell-first."
     ],
@@ -180,7 +180,7 @@ window.TOOLS = [
     how: "ads",
     category: "chat",
     surfaces: ["Web chat", "VS Code extension", "Android"],
-    free: "Guest chat needs no account — an advert pays for each message. An account adds a free daily token allowance and VibeBucks.",
+    free: "Guest chat needs no account: an advert pays for each message. An account adds a free daily token allowance and VibeBucks.",
     howPaid: "One ad auction fills every slot; labelled sponsored units appear while the assistant works and beside its replies.",
     catch: [
       "The ad classifier reads the first 1,500 characters of each message you send and keeps topic labels for 30 minutes. The message itself is not kept for ads.",
@@ -204,11 +204,11 @@ window.TOOLS = [
     how: "ads+share",
     category: "ide",
     surfaces: ["Browser", "Desktop (Windows, Linux)"],
-    free: "140 AI credits a day across included models — roughly 20 agent steps a day, per their own comparison.",
+    free: "140 AI credits a day across included models, roughly 20 agent steps a day, per their own comparison.",
     howPaid: "Sponsored cards. Half of eligible ad revenue is credited to your account; the other half funds the editor. Plans from $19/month raise the allowance.",
     catch: [
       "20 agent steps a day is a taste, not a working day. Builder ($19) is 85, Pro ($39) is 175, Max ($149) is 661.",
-      "Free included AI is one sponsor's models — Tagflow Code 27B and Tagflow Code Flash, sponsored by Tagflow. Heabsy and every other hosted model are pay-as-you-go from credits.",
+      "Free included AI is one sponsor's models: Tagflow Code 27B and Tagflow Code Flash, sponsored by Tagflow. Heabsy and every other hosted model are pay-as-you-go from credits.",
       "Earnings depend on eligible views and advertiser demand; they are not a wage.",
       "No macOS desktop build yet; the browser version needs a verified account for included AI."
     ],
@@ -216,7 +216,7 @@ window.TOOLS = [
     evidence: "vendor",
     verified: "2026-11-26",
     sources: ["adcode", "adcode-pricing", "adcode-online"],
-    why: "The only product here that shares revenue with the user instead of just waiving the bill — and it publishes the step count rather than saying “generous”.",
+    why: "The only product here that shares revenue with the user instead of just waiving the bill, and it publishes the step count rather than saying “generous”.",
     pick: false
   },
   {
@@ -231,8 +231,8 @@ window.TOOLS = [
     free: "Seven models free every day up to 60,000 credits of usage per account, inside a daily budget shared by all users; Gemini 3.8 Flash joins them until 15 January 2027. The 25,000-credit signup bonus is gone.",
     howPaid: "Marked terminal ads in up to three places (60-character lines, booked by advertisers by the week) plus surveys and offers completed in a browser tab that convert to credits.",
     catch: [
-      "Past the daily limit you pay in credits. Most survey attempts end in a screenout that pays nothing — Clixad's own blog says so.",
-      "The free seven are not all budget models — GPT-5 Nano, GPT-6 Luna, Claude Haiku 5.5, GLM 5.3 Flash, DeepSeek V4.1 Flash, Gemini 3.5 Flash-Lite and Kimi K2.5 — but everything above them needs earned or bought credits.",
+      "Past the daily limit you pay in credits. Most survey attempts end in a screenout that pays nothing. Clixad's own blog says so.",
+      "The free seven are not all budget models: GPT-5 Nano, GPT-6 Luna, Claude Haiku 5.5, GLM 5.3 Flash, DeepSeek V4.1 Flash, Gemini 3.5 Flash-Lite and Kimi K2.5, but everything above them needs earned or bought credits.",
       "Clixad's own funding post says free credits changed after it was written: the signup bonus its worked examples depend on is no longer issued.",
       "Public beta, 18+, shared daily budget so peak hours bite.",
       "The ad network still sees your IP; ad text is chosen by fixed category, never from prompts."
@@ -248,7 +248,7 @@ window.TOOLS = [
     id: "idlen",
     name: "Idlen",
     tier: "forever",
-    tagline: "Not an agent — an extension that pays you for the time your AI spends thinking.",
+    tagline: "Not an agent: an extension that pays you for the time your AI spends thinking.",
     url: "https://www.idlen.io/",
     how: "ads+share",
     category: "earn",
@@ -257,9 +257,9 @@ window.TOOLS = [
     howPaid: "A native sponsored ad shown while the model is working. Advertisers reach you; you take 70% of that revenue.",
     catch: [
       "It earns you money; it does not provide a model. You still bring Claude, ChatGPT, Cursor or whatever you already pay for.",
-      "Ad relevance is chosen locally from your package.json — the extension says it never reads source code.",
+      "Ad relevance is chosen locally from your package.json. The extension says it never reads source code.",
       "Their own earnings calculator (“€20–100/month”) is based on average fill rates, not a promise.",
-      "A third-party extension inside your editor — review the code before installing."
+      "A third-party extension inside your editor: review the code before installing."
     ],
     licence: "Extension code published for security review.",
     evidence: "vendor",
@@ -282,14 +282,14 @@ window.TOOLS = [
     catch: [
       "Same as Idlen: it monetises your wait, it does not give you a model.",
       "It reads one timestamp from your Claude session file to tell “coding” from “terminal left open”; everything else stays local.",
-      "Uninstall restores your editor settings byte-for-byte — worth verifying yourself, since it does patch your Claude Code config.",
+      "Uninstall restores your editor settings byte-for-byte. Worth verifying yourself, since it does patch your Claude Code config.",
       "Earnings are estimates and depend on live bid prices."
     ],
     licence: "Open-source client, signed marketplace builds, verify.sh against public source.",
     evidence: "vendor",
     verified: "2026-11-26",
     sources: ["idlepay"],
-    why: "The most aggressively minimal version of the idea — one line, only during a real wait, verifiable builds.",
+    why: "The most aggressively minimal version of the idea: one line, only during a real wait, verifiable builds.",
     pick: false
   },
   {
@@ -301,7 +301,7 @@ window.TOOLS = [
     how: "vendor",
     category: "agent",
     surfaces: ["Terminal (macOS, Linux)"],
-    free: "A built-in free-models router — the project documents 150+ free models across 20+ providers — starts with no key or account; new free models reach free users after 30 days.",
+    free: "A built-in free-models router (the project documents 150+ free models across 20+ providers) that starts with no key or account; new free models reach free users after 30 days.",
     howPaid: "Vendor-funded free router; paid hosted tier is hard-capped prepaid credits with no overage path.",
     catch: [
       "overbrilliant.com no longer documents the agent at all: the site now sells custom-trained models from $1,500. The free CLI lives on GitHub and npm (@overbrilliant/ob1), with an Apache-2.0 licence and its own README.",
@@ -328,7 +328,7 @@ window.TOOLS = [
     free: "Free-tier chat models, usable inside OpenCode with no key or card.",
     howPaid: "The OpenCode Console gateway absorbs the cost; paid models and a Go subscription sit beside it.",
     catch: [
-      "The docs state free-tier chat models require OpenCode — you cannot call them from another client.",
+      "The docs state free-tier chat models require OpenCode, so you cannot call them from another client.",
       "The free list rotates with provider pricing.",
       "Console sign-in is needed for billing even though the CLI itself runs without an account.",
       "Free models are open-weight, never frontier."
@@ -344,15 +344,15 @@ window.TOOLS = [
     id: "antigravity",
     name: "Google Antigravity",
     tier: "forever",
-    tagline: "Agent-first IDE and CLI on a $0 individual plan — with real Claude and Gemini models.",
+    tagline: "Agent-first IDE and CLI on a $0 individual plan, with real Claude and Gemini models.",
     url: "https://antigravity.google/",
     how: "vendor",
     category: "ide",
     surfaces: ["IDE", "CLI"],
-    free: "$0 plan serving gemini-3.8-flash, claude-opus-4.6, claude-sonnet-4.6 and gpt-oss-120b — all four listed “until 2026-11-30”.",
+    free: "$0 plan serving gemini-3.8-flash, claude-opus-4.6, claude-sonnet-4.6 and gpt-oss-120b, all four listed “until 2026-11-30”.",
     howPaid: "Google-funded. No ads at all. Gemini CLI's individual free tier ended 18 June 2026 and Google routes free users here.",
     catch: [
-      "Google account required, and Google can change the quota with one announcement — the directory that probes these rows already dates all four models “until 2026-11-30”.",
+      "Google account required, and Google can change the quota with one announcement, and the directory that probes these rows already dates all four models “until 2026-11-30”.",
       "Gemini models and third-party models have separate weekly allowances, and neither amount is published.",
       "Gemini CLI's free tier being switched off is the cautionary tale: vendor free tiers are revocable.",
       "Proprietary and closed source."
@@ -376,7 +376,7 @@ window.TOOLS = [
     free: "Download, pull a model, run it. No key, no account, no card, no telemetry to a vendor.",
     howPaid: "You pay in electricity and hardware. That is the whole business model.",
     catch: [
-      "Needs a machine with enough memory — a 27B coding model wants a real GPU, not a Chromebook.",
+      "Needs a machine with enough memory: a 27B coding model wants a real GPU, not a Chromebook.",
       "Quality is below frontier models; you are trading capability for independence.",
       "You still need an agent front-end (opencode, Cline, Continue, OB-1) pointed at localhost:11434."
     ],
@@ -404,7 +404,7 @@ window.TOOLS = [
     free: "An Auto Free mode plus a keyless OpenAI-compatible gateway on a handful of free open models.",
     howPaid: "Free models are absorbed by the gateway; 500+ paid models bill through at provider rates.",
     catch: [
-      "Auto Free is deliberately the weaker path — mid-size open weights only.",
+      "Auto Free is deliberately the weaker path: mid-size open weights only.",
       "The gateway's free list rotates and can shrink without notice.",
       "One click on a paid model starts billing; easy to drift."
     ],
@@ -424,7 +424,7 @@ window.TOOLS = [
     how: "vendor",
     category: "ide",
     surfaces: ["IDE", "CLI"],
-    free: "A perpetual free tier on Claude Sonnet and open-weight models — 50 credits a month, non-rolling, on requests served from the US; successor to Amazon Q Developer.",
+    free: "A perpetual free tier on Claude Sonnet and open-weight models: 50 credits a month, non-rolling, on requests served from the US; successor to Amazon Q Developer.",
     howPaid: "AWS-funded, no ads.",
     catch: [
       "The workflow is opinionated: write requirements before code.",
@@ -450,7 +450,7 @@ window.TOOLS = [
     free: "15 async tasks per rolling day, 3 at a time, on Gemini models.",
     howPaid: "Google-funded.",
     catch: [
-      "Asynchronous only — no real-time steering.",
+      "Asynchronous only, so no real-time steering.",
       "GitHub connection required, with the repository access that implies.",
       "Small daily task count."
     ],
@@ -474,14 +474,14 @@ window.TOOLS = [
     howPaid: "Funded by DuckDuckGo's search business. No ads in the chat.",
     catch: [
       "The daily limit is unpublished, and the big models burn it faster.",
-      "Chat only — no files, no repository context.",
+      "Chat only: no files, no repository context.",
       "Chats stay on your device, so nothing follows you between machines."
     ],
     licence: "Proprietary.",
     evidence: "vendor",
     verified: "2026-11-26",
     sources: ["duck"],
-    why: "No account and no ads, but an undisclosed cap — the honest description is “limited”.",
+    why: "No account and no ads, but an undisclosed cap; the honest description is “limited”.",
     pick: false
   },
   {
@@ -493,7 +493,7 @@ window.TOOLS = [
     how: "vendor",
     category: "agent",
     surfaces: ["CLI", "VS Code", "JetBrains", "Desktop", "Mobile"],
-    free: "15 credits per rolling 5-hour window, up to 100 a month — one credit is one successful hosted response.",
+    free: "15 credits per rolling 5-hour window, up to 100 a month; one credit is one successful hosted response.",
     howPaid: "Hosted Fantail model is vendor-funded; BYOK and local models use no credits at all.",
     catch: [
       "100 hosted responses a month is roughly three a day.",
@@ -504,7 +504,7 @@ window.TOOLS = [
     evidence: "vendor",
     verified: "2026-11-26",
     sources: ["autohand"],
-    why: "Publishes the full rate-limit matrix on a docs page — rare — but 100 responses a month is a trial in all but name.",
+    why: "Publishes the full rate-limit matrix on a docs page, which is rare, but 100 responses a month is a trial in all but name.",
     pick: false
   },
   {
@@ -516,7 +516,7 @@ window.TOOLS = [
     how: "vendor",
     category: "ide",
     surfaces: ["IDE", "CLI"],
-    free: "100 credits a month, 5,000 code completions a month, 3 automated tasks — plus a limited-time promo of 30 credits a day.",
+    free: "100 credits a month, 5,000 code completions a month, 3 automated tasks, plus a limited-time promo of 30 credits a day.",
     howPaid: "Vendor-funded free plan; Pro at $10/month ($7 first month) buys 2,000 credits and unlimited completions.",
     catch: [
       "The good numbers are promotional and the docs say plainly they will not always be available.",
@@ -527,7 +527,7 @@ window.TOOLS = [
     evidence: "vendor",
     verified: "2026-11-26",
     sources: ["workbuddy"],
-    why: "Listed because its docs separate base credits from promo credits — most products blur the two.",
+    why: "Listed because its docs separate base credits from promo credits; most products blur the two.",
     pick: false
   },
   {
@@ -542,7 +542,7 @@ window.TOOLS = [
     free: "Limited HD images and editing, limited standard chat, up to 250 “Theos” a day in DeepAI Code, 60s/day of voice chat.",
     howPaid: "Vendor-funded free tier with an ad-supported free experience; Pro at $9.99/month (or $7.50 annual) removes ads and raises everything.",
     catch: [
-      "Free chat is limited to Standard models. Genius and Super Genius — GPT-6.2 Sol, Grok 4.3, Claude Fable 5.2, Claude Opus 5.5, GPT-6.2 Astra, Gemini 4 Argon — are Pro only.",
+      "Free chat is limited to Standard models. Genius and Super Genius (GPT-6.2 Sol, Grok 4.3, Claude Fable 5.2, Claude Opus 5.5, GPT-6.2 Astra, Gemini 4 Argon) are Pro only.",
       "The API is not free at all: the docs state API access requires a DeepAI Pro subscription.",
       "Theos are a daily allowance, not a durable pool."
     ],
@@ -596,7 +596,7 @@ window.TOOLS = [
     evidence: "directory",
     verified: "2026-11-26",
     sources: ["trae", "awesome"],
-    why: "A large free headline that is really a one-shot trial — exactly the shape this tier is here to flag.",
+    why: "A large free headline that is really a one-shot trial, exactly the shape this tier is here to flag.",
     pick: false
   },
   {
@@ -619,7 +619,7 @@ window.TOOLS = [
     evidence: "directory",
     verified: "2026-11-26",
     sources: ["qoder", "awesome"],
-    why: "The free tier is really four overlapping promotions — a good example of why this tier exists separately.",
+    why: "The free tier is really four overlapping promotions, a good example of why this tier exists separately.",
     pick: false
   },
   {
@@ -635,7 +635,7 @@ window.TOOLS = [
     howPaid: "Vendor-funded free tier; paid plans from $10.",
     catch: [
       "Monthly completions and chat requests run out quickly once an agent is involved.",
-      "Free sign-ups have been paused and reopened at various points — availability has changed before.",
+      "Free sign-ups have been paused and reopened at various points; availability has changed before.",
       "GitHub account required."
     ],
     licence: "Proprietary.",
@@ -657,7 +657,7 @@ window.TOOLS = [
     free: "Codex on the Free plan, subject to rollout; unlimited text chat with GPT-6 Luna.",
     howPaid: "Vendor-funded; Plus at $20/month.",
     catch: [
-      "The free allowance is not published — OpenAI does not state a number.",
+      "The free allowance is not published: OpenAI does not state a number.",
       "Rollout varies by country and account.",
       "ChatGPT account required."
     ],
@@ -723,10 +723,10 @@ window.TOOLS = [
     how: "vendor",
     category: "api",
     surfaces: ["Web console", "API"],
-    free: "A free tier on the Gemini API — Gemini 3.8 Flash, 3.6 Flash, Gemma 4 and others.",
+    free: "A free tier on the Gemini API: Gemini 3.8 Flash, 3.6 Flash, Gemma 4 and others.",
     howPaid: "Google-funded free tier; pay-as-you-go above it.",
     catch: [
-      "Free-tier prompts may be used to improve Google's products — never paste secrets.",
+      "Free-tier prompts may be used to improve Google's products, so never paste secrets.",
       "Rate limits are per model and change with announcements.",
       "A key plus a client is needed; this is not an agent on its own."
     ],
@@ -757,7 +757,7 @@ window.TOOLS = [
     evidence: "directory",
     verified: "2026-11-26",
     sources: ["groq", "awesome"],
-    why: "When latency is the problem — tight test loops, autocomplete — this is the fastest free inference available.",
+    why: "When latency is the problem (tight test loops, autocomplete), this is the fastest free inference available.",
     pick: false
   },
   {
@@ -796,7 +796,7 @@ window.TOOLS = [
     howPaid: "Providers and paid traffic subsidise the free pool.",
     catch: [
       "Free models are rate-limited and heavily used.",
-      "Some free routes log prompts for training — read each model card.",
+      "Some free routes log prompts for training; read each model card.",
       "The free list rotates constantly; the router may pick a weaker model than you expected."
     ],
     licence: "Proprietary service, OpenAI-compatible.",
@@ -815,7 +815,7 @@ window.TOOLS = [
     how: "vendor",
     category: "api",
     surfaces: ["API"],
-    free: "Free open models — DeepSeek V4 Flash, GLM 5.3 Flash, MiniMax M3, Qwen 3.6 — over OpenAI and Anthropic-shaped endpoints.",
+    free: "Free open models (DeepSeek V4 Flash, GLM 5.3 Flash, MiniMax M3, Qwen 3.6) over OpenAI and Anthropic-shaped endpoints.",
     howPaid: "University research project.",
     catch: [
       "Research capacity: uptime is best-effort and it could stop without notice.",
@@ -867,7 +867,7 @@ window.TOOLS = [
     catch: [
       "Anonymous means shared limits and no support.",
       "Small catalogue.",
-      "Data residency in the EU — the point for some users."
+      "Data residency in the EU, which is the point for some users."
     ],
     licence: "Proprietary service.",
     evidence: "directory",
@@ -888,7 +888,7 @@ window.TOOLS = [
     free: "GLM 4.7 Flash, 4.5 Flash and 4.6V Flash at zero price.",
     howPaid: "Vendor-funded.",
     catch: [
-      "Flash only — the large GLMs are paid.",
+      "Flash only; the large GLMs are paid.",
       "Chinese provider: read the data terms.",
       "Key required."
     ],
@@ -942,7 +942,7 @@ window.TOOLS = [
     evidence: "directory",
     verified: "2026-11-26",
     sources: ["pollinations", "awesome"],
-    why: "The fastest way to prove an idea without creating an account — images included.",
+    why: "The fastest way to prove an idea without creating an account, images included.",
     pick: false
   },
 /* ───────────── TIER: REFERENCE ─────────────
@@ -960,7 +960,7 @@ window.TOOLS = [
     free: "MIT licensed. No tracking, no ads, no affiliate links.",
     howPaid: "Volunteer project; GitHub Actions probe every row twice a week and archive offers after three failed probes.",
     catch: [
-      "It is a list — you still wire everything up.",
+      "It is a list, so you still wire everything up.",
       "Ended offers can linger until the next probe.",
       "Very broad: easy to disappear into."
     ],
@@ -984,7 +984,7 @@ window.TOOLS = [
     howPaid: "A plain directory, last updated 2026-09-29, with a verification column.",
     catch: [
       "Rows go stale between updates.",
-      "“Free credits on signup” is not “free forever” — read the column.",
+      "“Free credits on signup” is not “free forever”. Read the column.",
       "It lists; it does not test."
     ],
     licence: "n/a",
@@ -1008,7 +1008,7 @@ window.TOOLS = [
     catch: [
       "Quotes vendors rather than testing them.",
       "Some entries were “verified” without the exact limits being captured.",
-      "Checked 31 October 2026 — 26 days before this re-check."
+      "Checked 31 October 2026, 26 days before this re-check."
     ],
     licence: "n/a",
     evidence: "directory",
@@ -1060,7 +1060,7 @@ window.TOOLS = [
     evidence: "directory",
     verified: "2026-11-26",
     sources: ["azure"],
-    why: "Enough to host a real side project — and an AI endpoint — for a year without a card.",
+    why: "Enough to host a real side project, and an AI endpoint, for a year without a card.",
     pick: false
   }
 ];

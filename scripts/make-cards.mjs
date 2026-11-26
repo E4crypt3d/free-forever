@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Free Forever — re-shoot the share images from their HTML sources.
+/* Free Forever, re-shoot the share images from their HTML sources.
  *
  *   node scripts/make-cards.mjs
  *
@@ -30,7 +30,7 @@ function findChrome() {
       return bin;
     } catch {}
   }
-  throw new Error("no Chromium found — set CHROME=/path/to/chromium");
+  throw new Error("no Chromium found. Set CHROME=/path/to/chromium");
 }
 
 const chrome = findChrome();
@@ -54,7 +54,7 @@ function shot(url, out, size) {
     rmSync(dir, { recursive: true, force: true });
   }
   const bytes = statSync(join(ROOT, out)).size;
-  console.log(`${out} — ${size} — ${(bytes / 1024).toFixed(1)} KB`);
+  console.log(`${out}: ${size}, ${(bytes / 1024).toFixed(1)} KB`);
   if (bytes > 600 * 1024) throw new Error(`${out} is over WhatsApp's 600 KB ceiling`);
 }
 

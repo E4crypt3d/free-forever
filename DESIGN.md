@@ -1,102 +1,132 @@
-# DESIGN.md — free forever
+# DESIGN.md: free forever
 
-The design system for this page. Read it before changing UI; update it when the
-system changes. Written after the audit-ledger rework.
+The design system for this page. Read it before changing UI, and update it when
+the system changes. Written after the index rework.
 
 ## Concept
 
-The page is a **ruled audit sheet**, not a set of cards. Entries sit inside the
-document's rules; nothing floats above it. That choice comes from the content:
-the whole product is a claim about who pays, so the surface behaves like a
-statement with figures, hairlines and margin notes.
+One page of white paper with an **aligned index** on it. The page has one job:
+let someone find a tool, see what "free" actually means, and read the catch, in
+that order.
 
-Anti-reference (what this replaced): warm cream ground, rounded cards with soft
-shadows, coloured 3px side tabs, a small tracked kicker above every heading.
-Those are the defaults of every generated directory page and are out of bounds
-here.
+Three things it is not, all previously rejected:
 
-## Ground and ink
+- not a dark console (neon accent, mono micro labels, instrument panels);
+- not a printed ledger (numbered gutter, red marginalia, paper tint);
+- not a card stack (rounded white cards on grey, pill badges, big two-tone
+  headline). That reads as a template, which is what this rewrite removes.
+
+The rule that replaced them: **no filled boxes**. Structure comes from rules,
+alignment and type, plus one colour per tier. If a piece of UI needs a border
+and a shadow to exist, it is probably not needed.
+
+## Ground and colour
 
 | Token | Value | Use |
 |:--|:--|:--|
-| `--paper` | `#f2f3ee` | page ground (cool, green-grey — deliberately not cream) |
-| `--paper-2` | `#e7e9e1` | pressed/hover fills |
-| `--ink` | `#0f110c` | body text, structural rules, inverted blocks |
-| `--ink-2` | `#3a3e35` | secondary copy (9.8:1 on paper) |
-| `--ink-3` | `#5f6457` | metadata (5.5:1 on paper) |
-| `--rule` | `#b4bba6` | row hairlines (1.8:1 — structural, not text) |
-| `--rule-strong` | `#a2a899` | control borders |
+| `--paper` | `#ffffff` | the page, top to bottom |
+| `--sunk` | `#f7f8f9` | row hover, `:target` |
+| `--ink` | `#14161a` | text, headings, section rules, the primary button |
+| `--ink-2` | `#4a5158` | secondary copy (7.6:1 on white) |
+| `--ink-3` | `#6b7280` | metadata (4.8:1 on white) |
+| `--line` | `#d9dce0` | rules and control borders |
+| `--line-2` | `#cdd1d6` | dotted markers |
+| `--line-soft` | `#e8eaed` | row dividers, the quietest rule |
 
-Semantic colours encode **who pays**, never decoration:
+Colour appears in exactly two places, both carrying meaning:
 
-| Token | Value | Meaning | Contrast on its wash |
-|:--|:--|:--|:--|
-| `--green` | `#0d6b3d` | free forever | 5.4:1 |
-| `--amber` | `#8a4a0a` | limited / vendor-probed | 5.6:1 |
-| `--grey` | `#565a50` | reference | 5.7:1 |
-| `--flag` | `#a2331c` | the catch | 5.7:1 |
+| Tier | Value |
+|:--|:--|
+| Free forever | `#0f6b42` |
+| Limited free | `#8a5300` |
+| Reference | `#4a5568` |
 
-Every text pair clears 4.5:1. Do not grey secondary text on a tinted surface;
-tint it from the hue.
+`--catch` (`#a52a19`) marks the word "Catch" and the `+N more` control, nothing
+else. A new element that wants a colour should get a label instead.
 
 ## Type
 
 | Role | Family | Notes |
 |:--|:--|:--|
-| Display | Bricolage Grotesque | headings, entry names, pitch lines. Tracking floor −0.035em. |
-| Body | IBM Plex Sans | 16px/1.6 base, 65–75ch measure |
-| Figures / labels | IBM Plex Mono | counts, sources, timestamps; `font-variant-numeric: tabular-nums` |
+| Display | Bricolage Grotesque | h1, h2, tool names, counts. Tracking -0.015 to -0.033em. |
+| Body | IBM Plex Sans | 16px/1.55 base, 13 to 15px inside rows |
+| Data | IBM Plex Mono | domains, counts, dates, list column labels, small labels |
 
-Scale: 84 / 76 / 42 / 34 / 20 / 18 / 16 / 14 / 13 / 12px. **No functional text
-below 12px.** Uppercase mono is reserved for labels and figures, never prose.
+Scale: 40 / 32 / 29 / 19 / 16 / 15 / 14.5 / 13.5 / 13 / 12.5 / 11.5 / 11px.
+No uppercase micro labels and no letter-spaced kickers over every block: labels
+are 11px mono at ink-3, or 12.5px sans.
 
-## Structure
+## Layout
 
-- One measure: `--max: 1280px`, `--pad` steps 20 → 32 → 40 → 48 → 56px.
-- Square corners everywhere. No border radius, no box shadows.
-- Hierarchy is carried by **hairline rules and space**, not containers.
-  `1px solid var(--ink)` opens a section; `1px solid var(--rule)` separates rows.
-- Multi-item blocks (defs, funding, method) are ruled columns separated by
-  vertical hairlines, with the outer column flush to the container edge.
-- Tier colour appears as a 3px top rule on the tier statement and as an outlined
-  tag on entries. Never as a thick side tab.
+- One measure: `--wrap: 1160px`, `--pad` 16 to 32px.
+- Header 56px, sticky, one hairline under it.
+- Masthead: h1 left, lede right, then a rule with the counts on the left and the
+  compiled note on the right.
+- Toolbar: 34px controls, sticky above 780px, and not sticky on a phone, where
+  three pinned rows would be most of the screen.
 
-## Entries
+## The list
 
-- **≥1024px** — one row per tool: identity (196–214px) · facts · catch margin
-  note · meta. Rows are separated by hairlines; hover tints the row.
-- **<1024px** — one stacked entry per tool, also hairline-separated.
-- Exactly **one rendering is visible per breakpoint**. `.stack` is declared
-  before the desktop media query on purpose; if it moves later in the file it
-  overrides `display: none` and every tool renders twice.
-- The catch is a margin note on a 1px `--flag` rule. All catch points are
-  reachable through a real disclosure button (`aria-expanded`), never a dead
-  "+ N more" line.
+Three columns at 780px and up: `200px | 1fr | 30px`.
+
+1. **Tool** column: name (link to the vendor), domain in mono, tier when the
+   order is not by tier.
+2. **What free gets you, and what it costs you**: the free allowance, then the
+   catch with the red label and `+N more` inline.
+3. A single quiet caret that opens that row's facts and sources.
+
+A column header row names the two columns, so nothing has to be guessed.
+
+**Tiers are stated once, not 42 times.** When the order is by tier, a group
+heading (`Free forever`, `Limited free`, `Reference`) with an ink rule sits above
+each block, and the per-row tier is hidden. Sorting by name or by date drops the
+groups and prints the tier on each row instead.
+
+The fact panel is flow, not a card: a three column definition list (runs as,
+runs on, paid by, licence, read), then why it is on the page, then source links
+with an evidence tag.
+
+## Sections
+
+Every section opens with a 1px ink rule and a mono kicker (`01 · The tiers`).
+Nothing is boxed:
+
+- Tiers: three columns divided by hairline verticals.
+- Funding: one row per payer (210px label column, 2px share bar under the label).
+- Checks: a question list with `+` at the right.
+- Method: two columns divided by a hairline vertical.
+- The closing statement: a 2px ink rule, then type. It used to be a black card.
 
 ## States
 
-- Empty search: names the problem and offers two recoveries (clear search, show
-  all 42). Never a dead end.
-- Filter chips are a single-select tab set: `aria-pressed` mirrors `is-on`.
-- `:focus-visible` is a 2px `--green` outline at 3px offset on every control.
-- Tap targets ≥ 24px (chips 42px, tags 26px, buttons 44px).
-- `::selection` is a green wash; carets are green; scrollbars are themed.
+- Active tier tab: ink text with a 2px underline. Not a segmented pill.
+- Active filter chip: ink fill, white text. The Filters button shows a count and
+  turns outlined-ink while filters are on.
+- Empty search: names the problem, offers two recoveries.
+- `:focus-visible`: 2px ink outline, 2px offset.
+- Tap targets: 34px toolbar controls, 30px dialog controls, 26px row carets.
 
 ## Motion
 
-One authored moment: the hero statement, lede and tier figures resolve once with
-a blur + clip-path rise, 0.7s on `cubic-bezier(.16, 1, .3, 1)`. Nothing else
-animates on entry. Hover and focus transitions are 120–160ms. All of it is
-inside `prefers-reduced-motion: no-preference`.
+One settle of 0.34s on the masthead, inside `prefers-reduced-motion: no-preference`.
+The caret rotates 0.15s. Nothing else moves.
+
+## Copy rules
+
+- No em dashes anywhere: page, `data/tools.js`, `llms.txt`, code comments. Use a
+  colon, comma, full stop, bracket or semicolon.
+- The page does not rank tools. `pick` in the data only orders entries inside a
+  tier; it is never printed, because the method says this is not a quality
+  ranking.
+- Every number on screen is derived from `data/tools.js` at run time.
 
 ## Known exceptions
 
-- **Google Fonts.** The three faces load from `fonts.googleapis.com` with
-  `display=swap`; the page is otherwise offline-capable. There is a small FOUT
-  layout shift on a cold cache.
-- **Detector `cramped-padding` on `.fund`** is a verified false positive: the
-  funding list is a ruled register whose text aligns to the column rule by
-  design, not a bordered card. Insetting it would break alignment with the
-  section heading.
-- Entry facts are line-clamped at 4 lines on desktop by design; the full text is
-  in the phone layout and the structured data.
+- **No logos and no favicons.** A favicon is a third party request, and this page
+  argues that vendors should not get your requests for free. Names carry identity.
+- **No page footer.** The header holds the navigation and the check date; the
+  closing statement ends the page.
+- **`#cards` stays empty** for older builds; the row markup is responsive, so one
+  renderer serves every breakpoint.
+- **Row text is not clamped.** A catch is the reason someone is on the page, and
+  hiding its second line would be the wrong saving.

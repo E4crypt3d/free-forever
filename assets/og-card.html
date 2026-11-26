@@ -3,24 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="robots" content="noindex, nofollow">
-<title>free forever — share card source</title>
+<title>free forever, share card source</title>
 <!-- Source for assets/og-card.png. Screenshot it at exactly 1200x630:
        node scripts/make-cards.mjs
      The counts between the markers are rewritten by scripts/build-static.mjs,
      so the card cannot drift from data/tools.js. The palette mirrors
-     assets/style.css: near-black ground, mono for anything measured. -->
+     assets/style.css: white surfaces, ink type, colour only for the tiers. -->
 <link rel="stylesheet" href="fonts.css">
 <style>
   :root {
-    --bg: #0a0c0b;
-    --line: #212825;
-    --ink: #e9ede4;
-    --ink-2: #a9b2a7;
-    --ink-3: #7c877e;
-    --green: #46e08c;
-    --green-dim: #0f2e1d;
-    --amber: #f2b544;
-    --grey: #a2b0c2;
+    --bg: #f5f6f8;
+    --surface: #ffffff;
+    --line: #e4e7ec;
+    --ink: #12151b;
+    --ink-2: #4b5462;
+    --ink-3: #636c79;
+    --forever-bg: #e7f4ec;
+    --forever-tx: #0b6b43;
+    --limited-bg: #fdf3e3;
+    --limited-tx: #8a5300;
+    --ref-bg: #eef1f6;
+    --ref-tx: #495366;
     --display: "Bricolage Grotesque", Georgia, serif;
     --sans: "IBM Plex Sans", system-ui, sans-serif;
     --mono: "IBM Plex Mono", ui-monospace, monospace;
@@ -30,71 +33,92 @@
     width: 1200px; height: 630px; overflow: hidden;
     background: var(--bg); color: var(--ink);
     font: 400 22px/1.45 var(--sans);
-    padding: 62px 68px 54px; box-sizing: border-box;
+    padding: 44px 56px;
+    box-sizing: border-box;
     display: flex; flex-direction: column;
-    /* the same hairline grid the page uses, at 4% so it never fights the type */
-    background-image:
-      linear-gradient(90deg, rgba(233,237,228,.05) 1px, transparent 1px),
-      linear-gradient(180deg, rgba(233,237,228,.05) 1px, transparent 1px);
-    background-size: 68px 68px;
   }
+  .card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 52px 56px 44px;
+  }
+  .top { display: flex; align-items: center; gap: 12px; }
+  .mark-box {
+    display: grid; place-items: center;
+    width: 38px; height: 38px; border-radius: 10px;
+    background: var(--ink); color: #fff;
+    font: 600 16px/1 var(--mono);
+  }
+  .brand { font: 700 26px/1 var(--display); letter-spacing: -.02em; }
   .eyebrow {
-    display: inline-flex; align-items: center; gap: 10px;
-    font: 500 15px/1 var(--mono); letter-spacing: .18em; text-transform: uppercase;
-    color: var(--green);
-  }
-  .eyebrow::before {
-    content: ""; width: 7px; height: 7px; border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 0 4px rgba(70,224,140,.18);
+    margin-left: auto;
+    font: 500 14px/1 var(--mono);
+    letter-spacing: .04em;
+    color: var(--ink-3);
   }
   h1 {
-    font: 700 104px/.92 var(--display); letter-spacing: -.045em;
-    margin: 30px 0 0; max-width: 940px;
+    font: 700 88px/.98 var(--display);
+    letter-spacing: -.04em;
+    margin: 44px 0 0;
+    max-width: 940px;
   }
-  h1 em { font-style: normal; display: block; color: var(--green); }
+  h1 em { font-style: normal; color: var(--ink-3); }
   p.sub {
-    font: 400 25px/1.4 var(--sans); color: var(--ink-2);
-    margin: 26px 0 0; max-width: 800px;
+    font: 400 24px/1.4 var(--sans);
+    color: var(--ink-2);
+    margin: 26px 0 0;
+    max-width: 830px;
   }
-  .rule { flex: 1 1 auto; border-bottom: 1px solid var(--line); margin-bottom: 24px; }
-  .foot { display: flex; align-items: flex-end; gap: 0; }
-  .stats { display: flex; }
-  .stat { padding: 0 42px; border-left: 1px solid var(--line); }
-  .stat:first-child { padding-left: 0; border-left: 0; }
+  .rule { flex: 1 1 auto; }
+  .foot { display: flex; align-items: flex-end; gap: 24px; }
+  .stats { display: flex; gap: 10px; }
+  .stat {
+    display: flex; align-items: baseline; gap: 9px;
+    padding: 9px 15px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+  }
   .stat b {
-    display: block;
-    font: 600 58px/.95 var(--mono); letter-spacing: -.05em;
+    font: 600 21px/1 var(--display);
+    letter-spacing: -.02em;
     font-variant-numeric: tabular-nums;
   }
-  .stat span {
-    display: block; margin-top: 11px;
-    font: 500 13px/1 var(--mono); letter-spacing: .15em;
-    text-transform: uppercase; color: var(--ink-3);
-  }
-  .stat--forever b { color: var(--green); }
-  .stat--limited b { color: var(--amber); }
-  .stat--reference b { color: var(--grey); }
-  .mark {
-    margin-left: auto; align-self: flex-end;
-    font: 500 14px/1 var(--mono); letter-spacing: .08em; color: var(--ink-3);
+  .stat span { font: 500 15px/1 var(--sans); }
+  .stat--forever { background: var(--forever-bg); border-color: #c7e6d5; color: var(--forever-tx); }
+  .stat--limited { background: var(--limited-bg); border-color: #f0dcc0; color: var(--limited-tx); }
+  .stat--reference { background: var(--ref-bg); border-color: #dbe1ea; color: var(--ref-tx); }
+  .url {
+    margin-left: auto;
+    font: 400 15px/1 var(--mono);
+    color: var(--ink-3);
+    padding-bottom: 12px;
   }
 </style>
 </head>
 <body>
-  <span class="eyebrow" id="card-eyebrow">free forever · 42 tools</span>
-  <h1>Free, or just <em>free for now?</em></h1>
-  <p class="sub">Which AI coding tools are actually free, and which are only a trial — with the catch printed under every row.</p>
-  <div class="rule"></div>
-  <div class="foot">
-    <!--count:stats-->
+  <div class="card">
+    <div class="top">
+      <span class="mark-box">$0</span>
+      <span class="brand">free forever</span>
+      <span class="eyebrow" id="card-eyebrow">free forever · 42 tools</span>
+    </div>
+    <h1>Free, or just <em>free for now?</em></h1>
+    <p class="sub">Which AI coding tools are actually free, and which are only a trial, with the catch printed under every row.</p>
+    <div class="rule"></div>
+    <div class="foot">
+      <!--count:stats-->
       <div class="stats">
         <div class="stat stat--forever"><b>13</b><span>Free forever</span></div>
         <div class="stat stat--limited"><b>24</b><span>Limited free</span></div>
         <div class="stat stat--reference"><b>5</b><span>Reference</span></div>
       </div>
     <!--/count:stats-->
-    <span class="mark">e4crypt3d.github.io/free-forever</span>
+      <span class="url">e4crypt3d.github.io/free-forever</span>
+    </div>
   </div>
 </body>
 </html>

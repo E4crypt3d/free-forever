@@ -1,9 +1,8 @@
-/* Free Forever — the console. Render, filter, sort, open. No dependencies.
+/* Free Forever, the directory. Render, filter, sort, open. No dependencies.
  *
- * One dataset (window.TOOLS) rendered twice: a table on wide screens and
- * panels below 1000px. Everything measured on the page — counts, gauge
- * widths, funding shares, the check date — is read back from that dataset
- * here, so data/tools.js is the only place a number is written down. */
+ * One dataset (window.TOOLS) rendered as one responsive list. Everything shown
+ * on the page (counts, funding shares, the check date) is read back from that
+ * dataset here, so data/tools.js is the only place a number is written down. */
 (function () {
   "use strict";
 
@@ -17,7 +16,7 @@
     vendor: "Vendor-funded",
     gateway: "Free model pool",
     local: "Your own hardware",
-    none: "—"
+    none: "Not stated"
   };
   var HOW_SHORT = {
     ads: "ads",
@@ -60,6 +59,14 @@
     } catch (e) { return url; }
   }
 
+  // The row shows the domain only: a 60 character docs path in a 200px column
+  // wraps to four lines and breaks the rhythm of the whole list.
+  function hostOnly(url) {
+    try {
+      return new URL(url).host.replace(/^www\./, "");
+    } catch (e) { return url; }
+  }
+
   // 2026-11-26 -> 26·11·26, the compact form used in the table.
   function shortDate(iso) {
     var p = String(iso || "").split("-");
@@ -82,8 +89,8 @@
     }).join("");
   }
 
-  var EXT = '<svg class="ext" viewBox="0 0 12 12" aria-hidden="true" focusable="false">' +
-    '<path d="M3.5 8.5 8.5 3.5M4.75 3.5h3.75v3.75"/></svg>';
+  var CARET = '<svg viewBox="0 0 12 12" aria-hidden="true" focusable="false">' +
+    '<path d="M2.5 4.5 6 8 9.5 4.5"/></svg>';
 
   function evidenceTag(entry) {
     var vendor = entry.evidence === "vendor";
@@ -92,127 +99,87 @@
       (vendor ? "vendor page" : "directory") + "</span>";
   }
 
-  function tierChip(tier, long) {
-    return '<span class="tier tier--' + esc(tier) + '">' +
-      (long ? TIER_FULL[tier] : TIER_LABEL[tier]) + "</span>";
+  function tierMark(tier) {
+    return '<span class="tier tier--' + esc(tier) + '">' + TIER_FULL[tier] + "</span>";
   }
 
-  // ── A row: the data, then the catch, then the rest on demand ─────────────
+  // ── One row: who it is, what you get, what it costs you ────────────────
 
-  function entry(e) {
-    var catches = e["catch"].map(function (c, i) {
-      return '<li' + (i ? ' class="is-extra" hidden' : "") + ">" + esc(c) + "</li>";
-    }).join("");
-    var extra = e["catch"].length - 1;
-    var listId = "catch-" + esc(e.id);
+  function entry(e, suffix) {
+    var rest = e["catch"].slice(1);
+    var uid = esc(e.id) + suffix;
+    var listId = "catch-" + uid;
+    var deepId = "deep-" + uid;
+    var more = rest.length
+      ? ' <button type="button" class="more" data-expand-catches aria-expanded="false" ' +
+        'aria-controls="' + listId + '">+' + rest.length + " more</button>"
+      : "";
 
     return [
-      '<article class="g-row" data-id="' + esc(e.id) + '" data-tier="' + esc(e.tier) +
+      '<article class="row" id="t-' + uid + '" data-id="' + esc(e.id) + '" data-tier="' + esc(e.tier) +
         '" data-cat="' + esc(e.category) + '" data-how="' + esc(e.how) + '">',
 
-        '<div class="g-main">',
-          '<div class="c-tool">',
-            '<a class="tool-name" href="' + esc(e.url) + '" target="_blank" rel="noopener">' +
-              esc(e.name) + EXT + "</a>",
-            '<span class="tool-meta">',
-              '<a class="tool-host" href="' + esc(e.url) + '" target="_blank" rel="noopener">' +
-                esc(host(e.url)) + "</a>",
-              '<span class="sep" aria-hidden="true">/</span>',
-              '<button type="button" data-tag-cat="' + esc(e.category) + '" title="Show every ' +
-                esc(CAT_LABEL[e.category] || e.category) + ' entry">' +
-                esc(CAT_LABEL[e.category] || e.category) + "</button>",
-              e.how !== "none"
-                ? '<span class="sep" aria-hidden="true">/</span><button type="button" data-tag-how="' +
-                  esc(e.how) + '" title="Show every entry paid for this way">' +
-                  esc(HOW_SHORT[e.how] || e.how) + "</button>"
-                : "",
-            "</span>",
-          "</div>",
-          '<div class="c-tier">' + tierChip(e.tier, false) +
-            (e.pick ? ' <span class="ev ev--vendor" title="Top pick">pick</span>' : "") + "</div>",
-          '<div class="c-free"><p class="free-txt">' + esc(e.free) + "</p></div>",
-          '<div class="c-paid"><span class="vh">Paid by </span><p class="paid-txt">' +
-            esc(HOW_LABEL[e.how] || e.how) + "</p></div>",
-          '<div class="c-lic"><span class="vh">Licence </span><p class="lic-txt">' +
-            esc(e.licence) + "</p></div>",
-          '<div class="c-read"><span class="vh">Last read </span><p class="read-txt">' +
-            esc(shortDate(e.verified)) + "</p></div>",
-          '<div class="c-go"><a class="go" href="' + esc(e.url) + '" target="_blank" rel="noopener" ' +
-            'aria-label="Open ' + esc(e.name) + '">' +
-            '<svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3.5 8.5 8.5 3.5M4.75 3.5h3.75v3.75"/></svg></a></div>',
+        '<div class="row-id">',
+          '<h3 class="row-title"><a class="row-name" href="' + esc(e.url) +
+            '" target="_blank" rel="noopener">' + esc(e.name) + "</a></h3>",
+          '<p class="row-meta">',
+            '<a class="row-host" href="' + esc(e.url) + '" target="_blank" rel="noopener" title="' +
+              esc(host(e.url)) + '">' + esc(hostOnly(e.url)) + "</a>",
+            '<span class="row-dot" aria-hidden="true">·</span>',
+            tierMark(e.tier),
+          "</p>",
         "</div>",
 
-        '<div class="catch-in">',
-          '<span class="catch-k">Catch</span>',
-          '<ul class="catch-list" id="' + listId + '">' + catches + "</ul>",
-          extra
-            ? '<button type="button" class="more" data-expand-catches aria-expanded="false" ' +
-              'aria-controls="' + listId + '">+ ' + extra + "</button>"
-            : "",
-          '<div class="deep" hidden>',
+        '<div class="row-main">',
+          '<p class="row-free"><span class="vh">What you get free: </span>' + esc(e.free) + "</p>",
+
+          '<p class="row-catch"><span class="catch-tag">Catch</span>' +
+            '<span class="catch-text">' + esc(e["catch"][0]) + more + "</span></p>",
+
+          '<ul class="catch-rest" id="' + listId + '" hidden>' +
+            rest.map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("") + "</ul>",
+
+          '<div class="deep" id="' + deepId + '" hidden>',
+            '<dl class="deep-facts">',
+              "<div><dt>Runs as</dt><dd>" + esc(CAT_LABEL[e.category] || e.category) + "</dd></div>",
+              "<div class=\"wide\"><dt>Runs on</dt><dd>" + esc(e.surfaces.join(" · ")) + "</dd></div>",
+              "<div><dt>Paid by</dt><dd>" + esc(HOW_LABEL[e.how] || e.how) + "</dd></div>",
+              "<div><dt>Licence</dt><dd>" + esc(e.licence) + "</dd></div>",
+              "<div><dt>Read</dt><dd>" + esc(e.verified) + "</dd></div>",
+            "</dl>",
             '<p class="deep-why"><b>Why it is on this page</b>' + esc(e.why) + "</p>",
-            '<p class="deep-src">Read ' + esc(e.verified) + " · " + srcLinks(e) + " " +
-              evidenceTag(e) + "</p>",
+            '<p class="deep-src">Sources: ' + srcLinks(e) + " " + evidenceTag(e) + "</p>",
           "</div>",
         "</div>",
 
+        '<div class="row-acts">',
+          '<button type="button" class="row-more" data-open="' + deepId + '" aria-expanded="false" ' +
+            'aria-controls="' + deepId + '" aria-label="Details and sources for ' + esc(e.name) + '" ' +
+            'title="Details and sources">' + CARET + "</button>",
+        "</div>",
       "</article>"
     ].join("");
-  }
-
-  // The column heads repeat the sort control that the rail's <select> already
-  // exposes to assistive tech, so this whole strip is decorative: hidden from
-  // screen readers, out of the tab order, and marked with a caret instead of
-  // invented table semantics.
-  function headHtml() {
-    return '<div class="g-head" aria-hidden="true">' +
-      '<div class="c-tool" data-col="name"><button type="button" data-sort="name" tabindex="-1">' +
-        'Tool<span class="caret"></span></button></div>' +
-      '<div class="c-tier" data-col="tier"><button type="button" data-sort="tier" tabindex="-1">' +
-        'Tier<span class="caret"></span></button></div>' +
-      '<div class="c-free"><span>What you get free</span></div>' +
-      '<div class="c-paid"><span>Paid by</span></div>' +
-      '<div class="c-lic"><span>Licence</span></div>' +
-      '<div class="c-read" data-col="read"><button type="button" data-sort="read" tabindex="-1">' +
-        'Read<span class="caret"></span></button></div>' +
-      '<div class="c-go"><span class="vh">Open</span></div>' +
-      "</div>";
   }
 
   function listHtml() {
-    return headHtml() + window.TOOLS.map(entry).join("");
+    return window.TOOLS.map(function (e) { return entry(e, "t"); }).join("");
   }
 
-  // ── The panel: the same entry on a phone, with nothing hidden ─────────────
+  // Tier groups: stated once per tier instead of on all 42 rows. Only used
+  // when the order is by tier, because that is when rows actually sit in
+  // groups; sorting by name or date keeps the tier on the row instead.
+  var GROUP_ORDER = ["forever", "limited", "reference"];
+  var groupEls = {};
 
-  function card(e) {
-    var catches = e["catch"].map(function (c) { return "<li>" + esc(c) + "</li>"; }).join("");
-    return [
-      '<article class="card2" data-id="' + esc(e.id) + '" data-tier="' + esc(e.tier) +
-        '" data-cat="' + esc(e.category) + '" data-how="' + esc(e.how) + '">',
-        '<div class="card2-top">',
-          '<div class="card2-id">',
-            '<a class="card2-name" href="' + esc(e.url) + '" target="_blank" rel="noopener">' +
-              esc(e.name) + EXT + "</a>",
-            '<a class="card2-host" href="' + esc(e.url) + '" target="_blank" rel="noopener">' +
-              esc(host(e.url)) + " · " + esc(CAT_SHORT[e.category] || CAT_LABEL[e.category] || e.category) + "</a>",
-          "</div>",
-          '<span class="card2-tier">' + tierChip(e.tier, false) + "</span>",
-        "</div>",
-        '<p class="card2-pitch">' + esc(e.tagline) + "</p>",
-        '<div class="card2-free"><span class="kicker">What you get free</span>' +
-          "<p>" + esc(e.free) + "</p></div>",
-        '<dl class="card2-facts">',
-          "<div><dt>Paid by</dt><dd>" + esc(HOW_LABEL[e.how] || e.how) + "</dd></div>",
-          "<div><dt>Licence</dt><dd>" + esc(e.licence) + "</dd></div>",
-          "<div><dt>Runs on</dt><dd>" + esc(e.surfaces.join(" · ")) + "</dd></div>",
-          "<div><dt>Read</dt><dd>" + esc(e.verified) + "</dd></div>",
-        "</dl>",
-        '<div class="card2-catch"><span class="kicker">The catch</span><ul>' + catches + "</ul></div>",
-        '<p class="card2-why"><b>Why it is on this page</b>' + esc(e.why) + "</p>",
-        '<div class="card2-foot">' + srcLinks(e) + evidenceTag(e) + "</div>",
-      "</article>"
-    ].join("");
+  function buildGroups() {
+    GROUP_ORDER.forEach(function (tier) {
+      var el = document.createElement("div");
+      el.className = "grp grp--" + tier;
+      el.dataset.grp = tier;
+      el.hidden = true;
+      el.innerHTML = '<span class="grp-name">' + TIER_FULL[tier] + "</span>";
+      groupEls[tier] = el;
+    });
   }
 
   // ── Mount ────────────────────────────────────────────────────────────────
@@ -225,7 +192,6 @@
   var clearBtn = document.getElementById("clear-search");
   var chipBar = document.getElementById("filters");
   var sortEl = document.getElementById("sort");
-  var railMore = document.getElementById("rail-more");
   var expandBtn = document.getElementById("expand-catches");
 
   window.TOOLS.forEach(function (t) {
@@ -240,7 +206,8 @@
   window.TOOLS.forEach(function (t) { byId[t.id] = t; });
 
   tableBox.innerHTML = listHtml();
-  mount.innerHTML = window.TOOLS.map(card).join("");
+  mount.innerHTML = "";
+  buildGroups();
 
   // Category and funding filters are built from the data, so a new category
   // in tools.js appears here without touching this file.
@@ -256,7 +223,7 @@
       .map(function (v) {
         var label = (short && short[v]) || labels[v] || v;
         return '<button type="button" data-tag-group="' + esc(field) + '" data-value="' + esc(v) +
-          '" aria-pressed="false" title="' + esc((labels[v] || v) + " — " + counts[v] + " entries") +
+          '" aria-pressed="false" title="' + esc((labels[v] || v) + ": " + counts[v] + " entries") +
           '">' + esc(label) + " " + counts[v] + "</button>";
       }).join("");
   }
@@ -266,7 +233,7 @@
   // ── State ────────────────────────────────────────────────────────────────
 
   var state = {
-    tier: "forever",
+    tier: "all",
     query: "",
     cats: [],
     hows: [],
@@ -321,7 +288,7 @@
       var url = new URL(window.location.href);
       ["q", "tier", "cat", "how", "sort"].forEach(function (k) { url.searchParams.delete(k); });
       if (state.query) url.searchParams.set("q", state.query);
-      if (state.tier !== "forever") url.searchParams.set("tier", state.tier);
+      if (state.tier !== "all") url.searchParams.set("tier", state.tier);
       if (state.cats.length) url.searchParams.set("cat", state.cats.join(","));
       if (state.hows.length) url.searchParams.set("how", state.hows.join(","));
       if (state.sort !== "tier") url.searchParams.set("sort", state.sort);
@@ -333,29 +300,52 @@
     var shown = sorted(window.TOOLS.filter(matches));
 
     // Reorder by moving the whole row, so a row can never separate from
-    // its catch.
-    var ids = shown.map(function (e) { return e.id; }).join("|");
+    // its catch. Group headings are moved in the same pass, so they always
+    // sit directly above the rows they describe.
+    var grouped = state.sort === "tier";
+    var ids = (grouped ? "g|" : "|") + shown.map(function (e) { return e.id; }).join("|");
     if (tableBox._order !== ids) {
+      GROUP_ORDER.forEach(function (tier) { if (groupEls[tier]) groupEls[tier].hidden = true; });
+      var lastTier = null;
       shown.forEach(function (e) {
-        var row = tableBox.querySelector('.g-row[data-id="' + e.id + '"]');
+        if (grouped && e.tier !== lastTier && groupEls[e.tier]) {
+          var grp = groupEls[e.tier];
+          grp.hidden = false;
+          tableBox.appendChild(grp);
+          lastTier = e.tier;
+        }
+        var row = tableBox.querySelector('.row[data-id="' + e.id + '"]');
         if (row) tableBox.appendChild(row);
       });
       tableBox._order = ids;
     }
+    tableBox.classList.toggle("is-grouped", grouped);
 
-    Array.prototype.forEach.call(tableBox.querySelectorAll(".g-row"), function (row) {
+    Array.prototype.forEach.call(tableBox.querySelectorAll(".row"), function (row) {
       row.hidden = !matches(byId[row.dataset.id]);
     });
+
+    var active = state.cats.length + state.hows.length;
+    var badge = document.getElementById("filter-count");
+    if (badge) {
+      badge.hidden = active === 0;
+      badge.textContent = active;
+    }
+    var fbtn = document.getElementById("filters-btn");
+    if (fbtn) fbtn.classList.toggle("is-on", active > 0);
     Array.prototype.forEach.call(mount.children, function (node) {
       node.hidden = !matches(byId[node.dataset.id]);
     });
 
     empty.hidden = shown.length > 0;
-    countEl.innerHTML = '<b>' + shown.length + "</b> of " + window.TOOLS.length +
-      " · " + (state.tier === "all" ? "every tier" : TIER_FULL[state.tier]) +
-      (state.query ? " · “" + esc(state.query) + "”" : "") +
-      (state.cats.length ? " · " + esc(state.cats.map(function (c) { return CAT_LABEL[c] || c; }).join(" + ")) : "") +
-      (state.hows.length ? " · " + esc(state.hows.map(function (h) { return HOW_LABEL[h] || h; }).join(" + ")) : "");
+    countEl.innerHTML = shown.length === window.TOOLS.length && !state.query &&
+      !state.cats.length && !state.hows.length
+      ? "<b>" + shown.length + "</b> entries, every tier"
+      : "<b>" + shown.length + "</b> of " + window.TOOLS.length +
+        (state.tier === "all" ? "" : " · " + TIER_FULL[state.tier]) +
+        (state.query ? " · “" + esc(state.query) + "”" : "") +
+        (state.cats.length ? " · " + esc(state.cats.map(function (c) { return CAT_LABEL[c] || c; }).join(" + ")) : "") +
+        (state.hows.length ? " · " + esc(state.hows.map(function (h) { return HOW_LABEL[h] || h; }).join(" + ")) : "");
 
     mount.dataset.filter = state.tier;
     tableBox.dataset.filter = state.tier;
@@ -370,11 +360,6 @@
 
   function paintSort() {
     if (sortEl) sortEl.value = state.sort;
-    Array.prototype.forEach.call(tableBox.querySelectorAll(".g-head [data-col]"), function (col) {
-      var on = col.dataset.col === state.sort;
-      col.classList.toggle("is-sorted", on);
-      col.querySelector(".caret").textContent = on ? (state.sort === "read" ? "\u25BC" : "\u25B2") : "";
-    });
   }
 
   function setSort(v) {
@@ -448,6 +433,18 @@
   var jumpSearch = document.getElementById("jump-search");
   if (jumpSearch) jumpSearch.addEventListener("click", focusSearch);
 
+  // Category and funding filters live behind one button, so the toolbar keeps
+  // three controls instead of ten.
+  var filterBtn = document.getElementById("filters-btn");
+  var filterMore = document.getElementById("filter-more");
+  if (filterBtn && filterMore) {
+    filterBtn.addEventListener("click", function () {
+      var open = filterMore.hidden;
+      filterMore.hidden = !open;
+      filterBtn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  }
+
   document.addEventListener("click", function (ev) {
     // A tag in a row promises "every entry that runs this way": clear what
     // contradicts that promise before narrowing, or the result is a lie.
@@ -479,14 +476,24 @@
     var more = ev.target.closest("[data-expand-catches]");
     if (more) {
       var ul = document.getElementById(more.getAttribute("aria-controls"));
-      var row = more.closest(".g-row");
-      var deep = row.querySelector(".deep");
       var open = more.getAttribute("aria-expanded") === "true";
-      Array.prototype.forEach.call(ul.querySelectorAll(".is-extra"), function (li) { li.hidden = open; });
-      if (deep) deep.hidden = open;
+      if (ul) ul.hidden = open;
       more.setAttribute("aria-expanded", open ? "false" : "true");
-      more.textContent = open ? "+ " + ul.querySelectorAll(".is-extra").length : "less";
+      var count = ul ? ul.children.length : 0;
+      more.textContent = open ? "+" + count + " more" : "fewer";
       paintExpand();
+      return;
+    }
+
+    // The caret in the third column opens the facts and sources for one row.
+    var opener = ev.target.closest("[data-open]");
+    if (opener) {
+      var panel = document.getElementById(opener.getAttribute("data-open"));
+      if (panel) {
+        var shown = opener.getAttribute("aria-expanded") === "true";
+        panel.hidden = shown;
+        opener.setAttribute("aria-expanded", shown ? "false" : "true");
+      }
     }
   });
 
@@ -500,18 +507,12 @@
     }
   });
 
-  // The rail folds into a disclosure below 1000px and is always open above it.
-  var wide = window.matchMedia("(min-width: 1000px)");
-  function syncRail() { if (railMore) railMore.open = wide.matches; }
-  syncRail();
-  if (wide.addEventListener) wide.addEventListener("change", syncRail);
-
   // ── Deep links: ?tier=, ?q=, ?cat=, ?how=, ?sort= ────────────────────────
 
   function readUrl() {
     var p = new URLSearchParams(window.location.search);
     var tier = p.get("tier");
-    state.tier = ["forever", "limited", "reference", "all"].indexOf(tier) !== -1 ? tier : "forever";
+    state.tier = ["forever", "limited", "reference", "all"].indexOf(tier) !== -1 ? tier : "all";
     var q = p.get("q") || "";
     state.query = q.trim().toLowerCase();
     searchEl.value = q;
@@ -582,30 +583,20 @@
 
   function visibleRows() {
     return Array.prototype.filter.call(
-      tableBox.querySelectorAll(".g-row"),
+      tableBox.querySelectorAll(".row"),
       function (row) { return !row.hidden; }
     );
   }
 
-  function rowsFullyOpen() {
-    var rows = visibleRows().filter(function (row) { return row.querySelector("[data-expand-catches]"); });
-    if (!rows.length) return false;
-    return rows.every(function (row) {
-      return row.querySelector("[data-expand-catches]").getAttribute("aria-expanded") === "true";
-    });
-  }
-
   function syncRows(open) {
-    Array.prototype.forEach.call(tableBox.querySelectorAll(".g-row"), function (row) {
+    Array.prototype.forEach.call(tableBox.querySelectorAll(".row"), function (row) {
       if (row.hidden) return;
       var more = row.querySelector("[data-expand-catches]");
-      var deep = row.querySelector(".deep");
       if (!more) return;
       var ul = document.getElementById(more.getAttribute("aria-controls"));
-      Array.prototype.forEach.call(ul.querySelectorAll(".is-extra"), function (li) { li.hidden = !open; });
-      if (deep) deep.hidden = !open;
+      if (ul) ul.hidden = !open;
       more.setAttribute("aria-expanded", open ? "true" : "false");
-      more.textContent = open ? "less" : "+ " + ul.querySelectorAll(".is-extra").length;
+      more.textContent = open ? "fewer" : "+" + (ul ? ul.children.length : 0) + " more";
     });
   }
 

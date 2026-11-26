@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-/* Free Forever — static SEO + agent surface generator.
+/* Free Forever, static SEO + agent surface generator.
  *
  * The page renders its 42 entries with JavaScript, which means crawlers that do
  * not execute JavaScript (most AI agents, most scrapers, print tools, readers
@@ -19,7 +19,7 @@
  *   node scripts/build-static.mjs           # rewrite the generated regions
  *   node scripts/build-static.mjs --check    # fail if anything is stale
  *
- * The PNG share card is a screenshot of assets/og-card.html — see
+ * The PNG share card is a screenshot of assets/og-card.html, see
  * scripts/make-cards.mjs. It is committed, so CI only checks the counts in it.
  */
 
@@ -93,7 +93,7 @@ function replaceRegion(file, start, end, body) {
 const title = `Free AI coding tools, checked: ${counts.forever} free forever, ${counts.limited} trials`;
 // ~155 characters: the pages Google and Bing show before truncating.
 const descLong = `${total} AI coding tools sorted by how free they really are: ${counts.forever} free forever, ${counts.limited} limited, ${counts.reference} reference. Every number read from the vendor's own page.`;
-const descShort = `${total} AI coding tools sorted by how free they really are. ${counts.forever} are free forever. ${counts.limited} are only a trial — and the catch is on every entry.`;
+const descShort = `${total} AI coding tools sorted by how free they really are. ${counts.forever} are free forever. ${counts.limited} are only a trial, and the catch is on every entry.`;
 const imgAlt = `Free, or just free for now? ${counts.forever} tools free forever, ${counts.limited} limited free, ${counts.reference} reference.`;
 
 const meta = `
@@ -255,7 +255,7 @@ const feedJson = JSON.stringify(feed, null, 2) + "\n";
 /* ── llms.txt ──────────────────────────────────────────────────────────── */
 
 const llmsRows = TOOLS.map(
-  (t) => `- [${t.name}](${t.url}) — ${TIER[t.tier]} — ${t.free}`
+  (t) => `- [${t.name}](${t.url}): ${TIER[t.tier]}. ${t.free}`
 ).join("\n");
 
 const llms = `# free forever
@@ -266,14 +266,14 @@ This file is for language models and agents. Humans should use ${SITE}.
 
 Machine-readable copies of the same data:
 
-- [feed.json](${SITE}feed.json) — every entry as JSON (id, name, url, tier, free allowance, who pays, the catch as an array, licence, platforms, sources, verification date).
-- [llms-full.txt](${SITE}llms-full.txt) — every entry in full Markdown.
+- [feed.json](${SITE}feed.json): every entry as JSON (id, name, url, tier, free allowance, who pays, the catch as an array, licence, platforms, sources, verification date).
+- [llms-full.txt](${SITE}llms-full.txt): every entry in full Markdown.
 
 How to read the tiers:
 
-- **Free forever** — no card, no expiry. Who pays next month is an advertiser, a vendor, a university or your own hardware.
-- **Limited free** — a genuine free allowance that runs out. Treat a one-time grant or an unpublished number as a trial.
-- **Reference** — not tools: directories that probe their own rows, and student bundles.
+- **Free forever**: no card, no expiry. Who pays next month is an advertiser, a vendor, a university or your own hardware.
+- **Limited free**: a genuine free allowance that runs out. Treat a one-time grant or an unpublished number as a trial.
+- **Reference**: not tools: directories that probe their own rows, and student bundles.
 
 Quoting: the entries are summaries of vendors' published numbers, with the source and date on each. Quote the date with the number; free tiers rot fast.
 
@@ -286,7 +286,7 @@ ${llmsRows}
 
 const fullBlocks = TOOLS.map((t, i) => {
   const sources = (t.sources || []).map((k) => (SOURCES[k] ? `- ${k}: ${SOURCES[k]}` : "")).filter(Boolean);
-  return `## ${i + 1}. ${t.name} — ${TIER[t.tier]}
+  return `## ${i + 1}. ${t.name} (${TIER[t.tier]})
 
 ${t.tagline}
 
@@ -308,10 +308,10 @@ ${sources.join("\n")}
 `;
 });
 
-const llmsFull = `# free forever — full entry text
+const llmsFull = `# free forever, full entry text
 
 Every entry on ${SITE}, in full, for language models. Read ${prettyDate(latest)}.
-Totals: ${total} entries — ${counts.forever} free forever, ${counts.limited} limited free, ${counts.reference} reference.
+Totals: ${total} entries. ${counts.forever} free forever, ${counts.limited} limited free, ${counts.reference} reference.
 Machine-readable: ${SITE}feed.json · Short map: ${SITE}llms.txt
 
 ${fullBlocks.join("\n")}
@@ -395,7 +395,7 @@ for (const [file, content] of finalOutputs) {
 
 if (CHECK) {
   if (stale.length) {
-    console.error("::error::generated files are stale — run: node scripts/build-static.mjs");
+    console.error("::error::generated files are stale. Run: node scripts/build-static.mjs");
     for (const f of stale) console.error("  stale:", f);
     process.exit(1);
   }
